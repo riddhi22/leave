@@ -1,0 +1,435 @@
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+body{
+  font: 15px/1.5 Helvetica, sans-serif;
+  padding:0;
+  margin:0;
+  background-color:#f4f4f4;
+}
+
+/* Global */
+
+ul{
+  margin:0;
+  padding:0;
+}
+
+.button_1{
+  height:40px;
+  width: 150px;
+  background-color: #4e89a4;
+  border:0;
+  padding-left: 20px;
+  padding-right:20px;
+  color:#ffffff;
+}
+
+.dark{
+  padding:15px;
+  background:#35424a;
+  color:#ffffff;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+/* Header **/
+header{
+  background:#35424a;
+  color:#ffffff;
+  padding-top:0px;
+  padding-left:10% ;
+  padding-right:10% ;
+  min-height:70px;
+  border-bottom:#f19a2c 3px solid;
+}
+
+header a{
+  color:#ffffff;
+  text-decoration:none;
+  text-transform: uppercase;
+  font-size:20px;
+  
+}
+
+header li{
+  float:left;
+  display:inline;
+  padding: 0 20px 0 20px;
+  margin-top: 4px;
+}
+
+header #branding{
+  float:left;
+	text-transform: uppercase;
+	margin-top: 8px;
+	
+	
+}
+
+#occName{
+	margin-top: 0;
+	text-align: center;
+	font-size: 20px;
+  font-family: Shadows Into Light;
+  padding-left: 8px;
+    padding-right: 8px;
+  font-family: 'Pacifico', cursive;
+font-family: 'Bubbler One', sans-serif;
+  
+}
+
+#logoName{
+	text-align: center;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	color: #F19A2C;
+	font-size: 24px;
+	font-family: 'Pacifico', cursive;
+  font-weight: lighter;
+  text-transform: none;
+}
+
+header #branding h1{
+  margin:0;
+}
+
+header nav{
+  float:right;
+  margin-top: 25px;
+}
+
+header .highlight, header .current a{
+  color: #4e89a4;
+  font-weight:bold;
+}
+
+header a:hover{
+  color:#cccccc;
+  
+}
+
+/* Showcase */
+
+
+
+#showcase{
+  min-height:550px;
+  background:url('https://images.unsplash.com/42/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg') no-repeat 0;
+	 background-size: cover;
+  text-align:center;
+	margin-top: 0px;
+	padding-top: 80px;
+  padding-bottom: 100px;
+
+  
+}
+
+#showcase .line2showcase{
+  margin-top: 0;
+  border-bottom: 1px dotted black;
+  
+}
+.containerShow{
+  width:60%;
+  color: #4e89a4;
+  margin-left:auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 80px;
+  overflow:hidden;
+	background-color: rgba(255,255,255,.8);
+}
+
+
+#showcase h1{
+  margin-top:90px;
+  font-size:75px;
+  margin-bottom:0px;
+  
+}
+
+#showcase p{
+  font-size:20px;
+  margin-top: 45px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  color: black;
+}
+
+/* Newsletter */
+
+.container{
+  width:100%;
+  margin: 0px auto;
+  overflow: hidden;
+  
+}
+
+#newsletter{
+  padding: 100px;
+  color:#ffffff;
+  background:#35424a;
+  
+}
+
+#newsletter h1{
+  float:left;
+	 position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  font-size: 36px;
+  
+}
+
+#newsletter form {
+  float:left;
+  margin-top:15px;
+   position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  margin-bottom: 45px;
+}
+
+#newsletter input[type="email"]{
+  padding:4px;
+  height:30px;
+  width:400px;
+  
+}
+
+#newsletter p{
+  float:left;
+  position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  color: white;
+  clear: both;
+}
+
+#newsletter .newsAddress{
+  font-size:22px;
+   position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  margin-top: 0;
+}
+
+#newsletter .newsMessage{
+  font-size:32px;
+  margin-top: 0;
+}
+form{
+  clear: both;
+}
+
+/* Boxes */
+#boxes{
+  padding-top: 100px;
+  padding-bottom: 100px;
+  
+}
+
+#boxes .box{
+  float:left;
+  text-align: center;
+  width:32%;
+  padding:10px;
+}
+
+#boxes .box img{
+  width:90px;
+}
+
+h3 {
+  color:#4e89a4;
+}
+
+i{
+  height: 120px;
+
+}
+
+
+
+
+/* Services */
+ul#services li{
+  list-style: none;
+  padding:20px;
+  border: #cccccc solid 1px;
+  margin-bottom:5px;
+  background:#e6e6e6;
+}
+.testimonials{
+  text-align: center;
+}
+.testimonialsHeader{
+  margin-top: 80px;
+  font-size: 32px;
+  padding-bottom: 10px;
+}
+.slide{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid #f19a2c;
+  
+}
+
+.slideB{
+  border: none;
+  margin-bottom: 100px;
+}
+.slideP{
+  padding-top: 50px;
+}
+.slideH{
+ font-size: 18px;
+ color: #4e89a4;
+}
+footer{
+  padding:20px;
+  margin-top:40px;
+  color:#ffffff;
+  background-color:#f19a2c;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* Media Queries */
+@media(max-width: 1524px){
+  
+  .containerShow{
+    width: 80%;
+  }
+#boxes .box{
+  float:left;
+  text-align: center;
+  width:30%;
+  padding:10px;
+  }
+  .slide{
+  width: 60%;
+
+}
+}
+@media(max-width: 768px){
+  header #branding,
+  header nav,
+  header nav li,
+  #newsletter h1,
+  #newsletter form,
+  #boxes .box,
+  article#main-col,
+  aside#sidebar{
+    float:none;
+    text-align:center;
+    width:100%;
+  }
+
+  header{
+    padding-bottom:20px;
+  }
+
+  #showcase h1{
+    margin-top:40px;
+    font-size: 54px;
+  }
+
+  #newsletter button, .quote button{
+    display:block;
+    width:100%;
+  }
+
+  #newsletter form input[type="email"], .quote input, .quote textarea{
+    width:100%;
+    margin-bottom:5px;
+  }
+}
+
+@media(max-width: 500px){
+  
+  header{
+  background:#35424a;
+  color:#ffffff;
+  padding-top:0px;
+  padding-left:0px ;
+  padding-right:0px ;
+  min-height:70px;
+  border-bottom:#f19a2c 3px solid;
+}
+  
+  .containerShow{
+    
+    width: 94%;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    
+  }
+  #showcase{
+    padding-top: 35px;
+  }
+  #showcase h1{
+    font-size: 32px;
+  }
+  #newsletter{
+  padding: 15px;
+  color:#ffffff;
+  background:#35424a
+}
+#newsletter h1{
+  float:left;
+  
+}
+  #newsletter .newsAddress{
+  font-size: 18px;
+  
+}
+  #newsletter .newsMessage{
+    font-size: 21px;
+  }
+  header li{
+  
+  display:inline;
+  padding: 0 10px 0 10px;
+  margin-top: 4px;
+  }
+  #occName{
+    border-bottom: 1px dotted white;
+  }
+  .container{
+  width:100%;
+  margin:auto;
+  overflow:hidden;
+    padding: 0;
+}
+  #showcase{
+    padding-bottom: 0;
+    
+  }
+  #showcase p{
+    font-size: 16px;
+    width: 98%;
+  }
+  
+  #boxes{
+    width: 95%;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .slide{
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+}
+
+  

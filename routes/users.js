@@ -1,0 +1,336 @@
+var express = require('express');
+var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcryptjs');
+
+var User = require('../models/user');
+var Application = require('../models/appli');
+
+// Register
+router.get('/register', function(req, res){
+	res.render('register');
+});
+
+router.get('/detail', function(req, res){
+	res.render('detail');
+});
+
+
+router.get('/delete', function(req, res){
+	res.render('delete');
+});
+
+router.get('/confirm', function(req, res){
+	res.render('confirm');
+});
+
+router.get('/confirm1', function(req, res){
+	res.render('confirm1');
+});
+
+// Login
+router.get('/login', function(req, res){
+	res.render('login');
+});
+
+router.get('/application', function(req, res){
+	res.render('application');
+});
+
+router.get('/application1', function(req, res){
+	res.render('application1');
+});
+
+router.get('/dashboard1', function(req, res){
+	res.render('dashboard1');
+});
+
+router.get('/dashboard2', function(req, res){
+	res.render('dashboard2');
+});
+
+router.get('/dashboard3', function(req, res){
+	res.render('dashboard3');
+});
+
+router.post('/confirm', function(req, res){//	var passwrd = req.user;
+	console.log(req.body.u_name);
+	var newUser = new User({
+		name: req.body.u_name,
+		email: req.body.u_email,
+		username: req.body.u_username,
+		password: req.body.u_password,
+		user_level: req.body.u_userlevel
+	});
+
+//	var newUser = req.body.User_n;
+// 	console.log(newUser);
+ 	var pass= req.body.password;
+ 	console.log(pass);
+ 	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(pass, salt);
+	if(bcrypt.compareSync(pass, req.user.password)){
+			User.createUser(newUser, function(err, user){
+			if(err) throw err;
+			console.log(user);
+		});
+		req.flash('success_msg', 'User is successfully registered!');
+		res.redirect('/users/dashboard3');
+	} else {
+			req.flash('error_msg', 'Wrong password, user registeration unsucessfull');
+			res.redirect('/users/dashboard3');
+		}
+});
+
+router.post('/confirm1', function(req, res){//	var passwrd = req.user;
+ 	var pass= req.body.password;
+ 	var username_d = req.body.username_d;
+ 	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(pass, salt);
+	if(bcrypt.compareSync(pass, req.user.password)){
+		User.remove({username: username_d} , function(err) {
+    	if (err) {
+          //  	throw err;
+        		req.flash('error_msg', 'Wrong username, no user found');
+            	res.redirect('/users/dashboard3');
+    	}
+ 
+    });	
+		req.flash('success_msg', 'User is successfully deleted');
+		res.redirect('/users/dashboard3');
+	} else {
+			req.flash('error_msg', 'Wrong password, user deletion unsucessfull');
+			res.redirect('/users/dashboard3');
+		}
+		
+});
+
+router.post('/application', function(req, res){
+	var from = req.body.from;
+	var to = req.body.to;
+	var email = req.body.email;
+	var teamleader = req.body.teamleader;
+
+	// Validation
+	req.checkBody('from', 'From Date is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('to', 'To Date is required').notEmpty();
+	req.checkBody('teamleader', 'Team Leader Name is required');
+	
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('application',{
+			errors:errors
+		});
+	} else {
+		var newApplication = new Application({
+			from: from,
+			email:email,
+			to: to,
+			teamleader: teamleader
+		});
+
+		req.flash('success_msg', 'Application Created Successfully');
+		res.redirect('/users/dashboard1');
+	}
+});
+
+router.post('/application1', function(req, res){
+	var from = req.body.from;
+	var to = req.body.to;
+	var email = req.body.email;
+	var employee = req.body.employee;
+	console.log(employee);
+	// Validation
+	req.checkBody('from', 'From Date is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('to', 'To Date is required').notEmpty();
+	req.checkBody('employee', 'Employee Name is required').notEmpty();
+	
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('application1',{
+			errors:errors
+		});
+	} else {
+		var newApplication = new Application({
+			from: from,
+			email:email,
+			to: to,
+			employee: employee
+		});
+
+		req.flash('success_msg', 'Application Created Successfully');
+		res.redirect('/users/dashboard2');
+	}
+});
+
+
+router.get('/profile', function(req, res){
+	res.render('profiledetail' ,{u_name : req.user.name, u_email : req.user.email, u_username : req.user.username, u_userlevel : req.user.user_level});
+});
+
+router.post('/delete', function(req, res) {
+    var username_d = req.body.username;
+	req.checkBody('username', 'Username is required').notEmpty();
+	var errors = req.validationErrors();
+	console.log(username_d);
+		if(errors){
+		res.render('delete',{
+			errors:errors
+		});
+	} else {
+		//@Him, dekh idhar I am checking--
+		var query = User.findOne({ 'username': username_d });
+		console.log(query);
+		//console.log null deta hai for noone, ab aage kar
+		//
+		//kaun hai?
+		//SUN YR AGAR password galat hai toh again password mangna chahiye na dashboard pe kyon redirect kar raha hai
+		//riddhi
+		//kyon? like github mai bhi, main teko jaise add karna chata hun repo main and mai galt daalta hun to fail hoke wapis aa jta hai
+		//baki kar sakti hai chahe to, bas redirect wala change hoga, bake same rahega
+		
+		//okk
+		//abhi kya fir
+		//abhi ye if loop mai ni jaata, and query.select mai error aa jata hai, ki no name obj of null
+//see terminal
+//haan null for name coming
+//name ki jagah user_name then?
+//name to chaiye na? like name, email and user_name in teeno ke le ra hun to display in the template
+//haan
+//dekh to kasie ho, meko samjah ni aa ra
+//bta kuch!
+		if (query==null) {
+			req.flash('error_msg', 'Wrong username, no user found');
+        	res.redirect('/users/dashboard3');
+		} else {
+		query.select('name email user_level');
+		query.exec(function (err, user) {
+			if (err) {
+		        req.flash('error_msg', 'Wrong username, no user found');
+            	res.redirect('/users/dashboard3');	
+				throw (err);
+			}
+			var u_name = user.name;
+			console.log('%s %s %s', user.name, user.email, user.user_level); 
+			res.render('confirm1' ,{u_name : user.name, u_username : username_d, u_email : user.email, u_userlevel: user.user_level });
+			});
+		}	
+	}
+});
+
+// Register User
+router.post('/register', function(req, res){
+	var name = req.body.name;
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	var password2 = req.body.password2;
+	var user_level = req.body.user_level;
+
+	// Validation
+	req.checkBody('name', 'Name is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('username', 'Username is required').notEmpty();
+	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+	req.checkBody('user_level', 'UserLevel is required').notEmpty();
+	
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('register',{
+			errors:errors
+		});
+	} else {
+	console.log(user_level);
+	res.render('confirm' ,{u_name : name,u_email : email,u_username : username,u_password : password ,u_userlevel : user_level});
+	}
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+   User.getUserByUsername(username, function(err, user){
+   	if(err) throw err;
+   	if(!user){
+   		return done(null, false, {message: 'Unknown User'});
+   	}
+
+   	User.comparePassword(password, user.password, function(err, isMatch){
+   		if(err) throw err;
+   		if(isMatch){
+   			return done(null, user);
+   		} else {
+   			return done(null, false, {message: 'Invalid password'});
+   		}
+   	});
+   });
+  }));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
+//
+
+router.post('/login',
+	passport.authenticate('local', { failureRedirect: '/users/login',
+									 failureFlash: 'Username or password invalid, please check again' }),
+	function(req, res) {
+//		var user_leve = req.body.user_level; 
+		var username = req.body.username;
+		var query = User.findOne({ 'username': username });
+//		console.log(query);
+		query.select('user_level');
+		query.exec(function (err, user) {
+			if (err) {
+		        req.flash('error_msg', 'Wrong username, no user found');
+            	res.redirect('/users/dashboard3');	
+				throw (err);
+			}
+		var user_leve = user.user_level;
+//		var user_leve = 'admin';		
+//		User.getUserByUsername(username, function(err, user){
+//   		if(err) throw err;
+//   		if(!user){
+//   		return done(null, false, {message: 'Unknown User'});
+//   		}
+//		user_leve = User.user_level;
+//		console.log(User.user_level);
+		if (user_leve== 'employee') {
+			req.flash('success_msg', 'You are logged in as employee');
+			res.render('dashboard1',{username : username});
+		} else if (user_leve== 'team') {
+			req.flash('success_msg', 'You are logged in as a Team leader');
+			res.render('dashboard2',{username : username});
+		} else if (user_leve== 'admin') {
+			req.flash('success_msg', 'You are logged in as a Administrator');
+			res.render('dashboard3',{username : username});
+		} else {
+			res.redirect('/users/login');
+			failureFlash: true;
+		}
+		});
+  });
+   
+ //main wp appl. team leader wala kar deta hun jaldi se
+ //tu delete wale ka dhund
+router.get('/logout', function(req, res){
+	req.logout();
+	req.flash('success_msg', 'You are logged out');
+	res.redirect('/users/login');
+});
+
+module.exports = router;

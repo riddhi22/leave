@@ -1,0 +1,51 @@
+@import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+@import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+
+
+#sum_box h4 {
+    text-align: left;
+    margin-top: 0px;
+    font-size: 30px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+
+#sum_box .db:hover {
+    background: #40516f;
+    color: #fff;
+}
+
+
+
+
+#sum_box .db:hover .icon {
+    opacity: 1;
+    color: #999999;
+}
+
+#sum_box .icon {
+    color: #fff;
+    font-size: 55px;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    float: right;
+}
+
+
+.panel.income.db.mbm{
+        background-color: #5cb85c;
+}
+
+.panel.profit.db.mbm{
+        background-color: #5bc0de;
+}
+
+
+.panel.task.db.mbm{
+        background-color: #f0ad4e;
+}
+
+
+ 
+

@@ -1,28 +1,32 @@
 {
   "name": "leave",
   "version": "1.0.0",
+  "private": true,
   "description": "swe project application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "node app.js"
+    "test": "./node_modules/.bin/mocha",
+    "start": "node app.js"
   },
   "author": "group b10",
-  "license": "ISC", 
+  "license": "ISC",
   "dependencies": {
-     "bcryptjs": "*",
-     "body-parser": "*",
-     "connect-flash": "*",
-     "cookie-parser": "^1.4.1",
-     "express": "*",
-     "express-handlebars": "*",
-     "express-messages": "*",
-     "express-session": "*",
-     "express-validator": "*",
-     "mongodb": "*",
-     "mongoose": "*",
-     "passport": "*",
-     "passport-http": "*",
-     "passport-local": "*"
-   }
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "chai": "^4.1.2",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mocha": "^4.0.1",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "request": "^2.83.0"
+  }
 }
