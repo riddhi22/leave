@@ -1,6 +1,2 @@
 language: node_js
-node_js:
-	-lts/*
-"scripts": {
-  "test": "npm test"
-},
+
