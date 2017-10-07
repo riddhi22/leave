@@ -1,5 +1,5 @@
 applications:
 - name: leave
-  host: emma_watson_best
+  host: emma-watson-best
   random-route: true
   memory: 1024M
