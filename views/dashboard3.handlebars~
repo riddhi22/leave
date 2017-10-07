@@ -1,0 +1,46 @@
+<h4 class="head" style="font-size:2.5em;text-align:center;background-color:#eee";><b>Dashboard for Administrator</b></h4>
+
+<h5 class="sec" style="font-size:1.2em;font-weight:bold";>Welcome {{{username}}}</h5><br>
+<div class="row">
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="/users/register" style="font-size:1.5em ;font-weight:bold";><i class="fa fa-user fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">Add New User</b>
+</center>
+</div>
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="/users/delete" style="font-size:1.5em ;font-weight:bold";><i class="fa fa-close fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">Delete User</b>
+</center>
+</div>
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="#"  style="font-size:1.5em;font-weight:bold";><i class="fa fa-male fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">My Profile</b>
+</center>
+</div>
+</div>
+<br>
+<br>
+<br>
+<div class="row">
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="#" style="font-size:1.5em ;font-weight:bold";><i class="fa fa-address-book fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">Attendance Statistics</b>
+</center>
+</div>
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="#" style="font-size:1.5em ;font-weight:bold";><i class="fa fa-calendar fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">Holiday Calender</b>
+</center>
+</div>
+<div class="col-md-4">
+<center>
+<div class="box" style="width:150px;padding:20px;border:3px solid grey;border-radius:50%";><a href="#" style="font-size:1.5em ;font-weight:bold";><i class="fa fa-navicon fa-4x" aria-hidden="true"></i></a></div>
+<b style="font-size:1.5em">Check Status</b>
+</center>
+</div>
+</div>

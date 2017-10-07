@@ -1,0 +1,5 @@
+applications:
+- name: leave
+  host: leave-mgmt-b10
+  random-route: true
+  memory: 1024M

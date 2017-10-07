@@ -1,0 +1,15 @@
+ <h4>The following User shall be deleted from the system, verify the details before proceeding.</h4>
+       <br>Name: {{{u_name}}}
+       <br>Username: {{{u_username}}}
+       <br>Email: {{{u_email}}}
+       <br>User level: {{{u_userlevel}}}
+       <br>
+       <br>
+<form method="post" action="/users/confirm1">
+   <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+    <input type="hidden" name="username_d" value={{{u_username}}}>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

@@ -1,0 +1,6 @@
+<h4 class="details" style="background-color:#eee;font-size:1.8em;text-align:center";>DETAILS OF EMPLOYEE</h4><div>
+<br><b>Name:</b>{{{u_name}}}
+       <br><b>Email:</b>{{{u_email}}}
+       <br><b>User Name:</b>{{{ u_username }}}
+       <br><b>User Level:</b> {{{ u_userlevel }}}
+       </div>

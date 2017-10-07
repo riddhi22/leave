@@ -1,0 +1,19 @@
+  <h4>The following User shall be added to the system, verify the details before proceeding.</h4>
+       <br>Name: {{{u_name}}}
+       <br>Username: {{{u_username}}}
+       <br>Password: {{{u_password}}}
+       <br>Email: {{{u_email}}}
+       <br>User level: {{{u_userlevel}}}
+       <br>
+<form method="post" action="/users/confirm">
+   <div class="form-group">
+    <label>Enter your password to verify</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+    <input type="hidden" name="u_name" value={{{u_name}}}>
+    <input type="hidden" name="u_username" value={{{u_username}}}>
+    <input type="hidden" name="u_password" value={{{u_password}}}>
+    <input type="hidden" name="u_email" value={{{u_email}}}>
+    <input type="hidden" name="u_userlevel" value={{{u_userlevel}}}>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
