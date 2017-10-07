@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://test:test@ds157964.mlab.com:57964/harley');
+mongoose.connect('mongodb://test:test@ds157964.mlab.com:57964/harley', {useMongoClient: true});
 var db = mongoose.connection;
 
 //var MongoClient = require('mongodb').MongoClient;
@@ -81,6 +81,13 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
+
+
+// Handle 404 - Keep this as a last route
+app.use(function(req, res, next) {
+    res.status(400);
+    res.send('404: File Not Found');
+});
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

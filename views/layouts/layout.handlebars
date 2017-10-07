@@ -25,16 +25,16 @@
             
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          <!--
-            { {#if user} }
+            {{#if user}}
             <li><a href="/">Home</a></li>
             <li><a href="/users/logout">Log Out</a></li>
-            { {else} }
+            {{else}}
             <li class="active"><a href="/users/login">Log In<span class="sr-only">(cur~rent)</span></a></li>
-            { { /if } }
-          -->  
+            {{/if}}
+          <!-- 
             <li><a href="/">Home</a></li>
             <li><a href="/users/logout">Log Out</a></li>
+          --> 
           </ul>
         </div><!--/.nav-collapse -->
       </div>

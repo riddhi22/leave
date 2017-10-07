@@ -1,5 +1,5 @@
 applications:
 - name: leave
-  host: emma-watson-best
+  host: leave-mgmt-b10
   random-route: true
   memory: 1024M

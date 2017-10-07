@@ -7,25 +7,42 @@ var bcrypt = require('bcryptjs');
 var User = require('../models/user');
 var Application = require('../models/appli');
 
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+    	req.flash('error_msg', 'Not logged in as any user, or session has expired. Login again');
+        res.redirect('/users/login');
+    }
+}
+
+function getUsers(req, res) {
+    let query = User.find({});
+    query.exec((err, user) => {
+        if(err) res.send(err);
+        res.json(user);
+    });
+}
+
 // Register
-router.get('/register', function(req, res){
+router.get('/register', loggedIn , function(req, res){
 	res.render('register');
 });
 
-router.get('/detail', function(req, res){
+router.get('/detail', loggedIn , function(req, res){
 	res.render('detail');
 });
 
 
-router.get('/delete', function(req, res){
+router.get('/delete', loggedIn , function(req, res){
 	res.render('delete');
 });
 
-router.get('/confirm', function(req, res){
+router.get('/confirm', loggedIn , function(req, res){
 	res.render('confirm');
 });
 
-router.get('/confirm1', function(req, res){
+router.get('/confirm1', loggedIn , function(req, res){
 	res.render('confirm1');
 });
 
@@ -34,24 +51,24 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-router.get('/application', function(req, res){
+router.get('/application', loggedIn , function(req, res){
 	res.render('application');
 });
 
-router.get('/application1', function(req, res){
+router.get('/application1', loggedIn , function(req, res){
 	res.render('application1');
 });
 
-router.get('/dashboard1', function(req, res){
-	res.render('dashboard1');
+router.get('/dashboard1/:username', loggedIn , function(req, res){
+	res.render('dashboard1',{username : req.params.username });
 });
 
-router.get('/dashboard2', function(req, res){
-	res.render('dashboard2');
+router.get('/dashboard2/:username', loggedIn , function(req, res){	
+	res.render('dashboard2',{username : req.params.username });
 });
 
-router.get('/dashboard3', function(req, res){
-	res.render('dashboard3');
+router.get('/dashboard3/:username', loggedIn , function(req, res){
+	res.render('dashboard3',{username : req.params.username });
 });
 
 router.post('/confirm', function(req, res){//	var passwrd = req.user;
@@ -70,16 +87,24 @@ router.post('/confirm', function(req, res){//	var passwrd = req.user;
  	console.log(pass);
  	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync(pass, salt);
+	console.log(req.user.username)
+	console.log(req.user.username)
+	console.log(req.user.username)
+	console.log(req.user.username)
 	if(bcrypt.compareSync(pass, req.user.password)){
 			User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
 		});
 		req.flash('success_msg', 'User is successfully registered!');
-		res.redirect('/users/dashboard3');
+		console.log(req.user.username);
+		var url1 = '/users/dashboard3/'+req.user.username;
+		res.redirect(url1);
 	} else {
 			req.flash('error_msg', 'Wrong password, user registeration unsucessfull');
-			res.redirect('/users/dashboard3');
+			console.log(req.user.username);
+			var url1 = '/users/dashboard3/'+req.user.username;
+			res.redirect(url1);
 		}
 });
 
@@ -92,16 +117,20 @@ router.post('/confirm1', function(req, res){//	var passwrd = req.user;
 		User.remove({username: username_d} , function(err) {
     	if (err) {
           //  	throw err;
-        		req.flash('error_msg', 'Wrong username, no user found');
-            	res.redirect('/users/dashboard3');
+        	req.flash('error_msg', 'Wrong username, no user found');
+            console.log(req.user.username);
+			var url1 = '/users/dashboard3/'+req.user.username;
+    		res.redirect(url1);
     	}
- 
     });	
 		req.flash('success_msg', 'User is successfully deleted');
-		res.redirect('/users/dashboard3');
+		var url1 = '/users/dashboard3/'+req.user.username;
+		res.redirect(url1);
 	} else {
 			req.flash('error_msg', 'Wrong password, user deletion unsucessfull');
-			res.redirect('/users/dashboard3');
+			console.log(req.user.username);
+			var url1 = '/users/dashboard3/'+req.user.username;
+			res.redirect(url1);
 		}
 		
 });
@@ -134,7 +163,8 @@ router.post('/application', function(req, res){
 		});
 
 		req.flash('success_msg', 'Application Created Successfully');
-		res.redirect('/users/dashboard1');
+		var url1 = '/users/dashboard1'+req.user.username;
+		res.redirect(url1);
 	}
 });
 
@@ -166,7 +196,8 @@ router.post('/application1', function(req, res){
 		});
 
 		req.flash('success_msg', 'Application Created Successfully');
-		res.redirect('/users/dashboard2');
+		var url1 = '/users/dashboard2'+req.user.username;
+		res.redirect(url1);
 	}
 });
 
@@ -208,18 +239,27 @@ router.post('/delete', function(req, res) {
 //bta kuch!
 		if (query==null) {
 			req.flash('error_msg', 'Wrong username, no user found');
-        	res.redirect('/users/dashboard3');
+        	console.log(req.user.username);
+			var url1 = '/users/dashboard3/'+req.user.username;
 		} else {
 		query.select('name email user_level');
 		query.exec(function (err, user) {
 			if (err) {
 		        req.flash('error_msg', 'Wrong username, no user found');
-            	res.redirect('/users/dashboard3');	
+            	console.log(req.user.username);
+				var url1 = '/users/dashboard3/'+req.user.username;	
 				throw (err);
 			}
 			var u_name = user.name;
 			console.log('%s %s %s', user.name, user.email, user.user_level); 
-			res.render('confirm1' ,{u_name : user.name, u_username : username_d, u_email : user.email, u_userlevel: user.user_level });
+			var context = {
+		//u_name : name,u_email : email,u_username : username,u_password : password ,u_userlevel : user_level
+				u_name : user.name,
+				u_email : user.email,
+				u_username : username_d,
+				u_userlevel : user.user_level		
+			}	
+			res.render('confirm1' ,{context});
 			});
 		}	
 	}
@@ -251,7 +291,19 @@ router.post('/register', function(req, res){
 		});
 	} else {
 	console.log(user_level);
-	res.render('confirm' ,{u_name : name,u_email : email,u_username : username,u_password : password ,u_userlevel : user_level});
+	var context = {
+//u_name : name,u_email : email,u_username : username,u_password : password ,u_userlevel : user_level
+		u_name : name,
+		u_email : email,
+		u_username : username,
+		u_password : password ,
+		u_userlevel : user_level		
+	}
+	console.log(req.user.username)
+	console.log(req.user.username)
+	console.log(req.user.username)
+	console.log(req.user.username)
+	res.render('confirm' ,{context});
 	}
 });
 
@@ -297,7 +349,7 @@ router.post('/login',
 		query.exec(function (err, user) {
 			if (err) {
 		        req.flash('error_msg', 'Wrong username, no user found');
-            	res.redirect('/users/dashboard3');	
+            	res.redirect('/users/login');	
 				throw (err);
 			}
 		var user_leve = user.user_level;
@@ -311,13 +363,16 @@ router.post('/login',
 //		console.log(User.user_level);
 		if (user_leve== 'employee') {
 			req.flash('success_msg', 'You are logged in as employee');
-			res.render('dashboard1',{username : username});
+			var url1 = '/users/dashboard1/'+req.user.username;
+			res.redirect(url1);
 		} else if (user_leve== 'team') {
 			req.flash('success_msg', 'You are logged in as a Team leader');
-			res.render('dashboard2',{username : username});
+			var url1 = '/users/dashboard2/'+req.user.username;
+			res.redirect(url1);
 		} else if (user_leve== 'admin') {
 			req.flash('success_msg', 'You are logged in as a Administrator');
-			res.render('dashboard3',{username : username});
+			var url1 = '/users/dashboard3/'+req.user.username;
+			res.redirect(url1);
 		} else {
 			res.redirect('/users/login');
 			failureFlash: true;
@@ -333,4 +388,5 @@ router.get('/logout', function(req, res){
 	res.redirect('/users/login');
 });
 
+module.exports = { getUsers };
 module.exports = router;
