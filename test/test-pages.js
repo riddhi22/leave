@@ -8,14 +8,14 @@ var routes = require('../routes/index');
 
 var mongoose = require('mongoose');
 
-
+/*
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../app')
 let should = chai.should();
 
 chai.use(chaiHttp);
-
+*/
 describe('Status and content', function() {
     describe ('Main page', function() {
         it('status', function(){
@@ -63,9 +63,11 @@ describe('Status and content', function() {
         });
 
     });
+});    
+ /*   
     describe ('random page', function() {
         it('status', function(){
-            request('http://localhost:3000/users/dashboard3/a
+            request('http://localhost:3000/users/dashboard3/
                 ', function(error, response, body) {
                 expect(response.statusCode).to.equal(404);
             });
@@ -73,6 +75,7 @@ describe('Status and content', function() {
 
     });
 });
+*/
 /*
 mongoose.connect('mongodb://test:test@ds157964.mlab.com:57964/harley', {useMongoClient: true});
 var db = mongoose.connection    
