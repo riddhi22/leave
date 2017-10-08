@@ -40,7 +40,7 @@ describe('Status and content', function() {
         });
 
     });
-    describe ('team leader page', function() {
+    describe ('supervisor page', function() {
         it('status', function(){
             request('http://localhost:3000/users/dashboard2', function(error, response, body) {
                 expect(response.statusCode).to.equal(200);
@@ -65,7 +65,8 @@ describe('Status and content', function() {
     });
     describe ('random page', function() {
         it('status', function(){
-            request('http://localhost:3000/users/dashboard3/a', function(error, response, body) {
+            request('http://localhost:3000/users/dashboard3/a
+                ', function(error, response, body) {
                 expect(response.statusCode).to.equal(404);
             });
         });

@@ -14,9 +14,17 @@ var appSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  teamleader:{
+  toPerson:{
     type: String,
     required: true
+  },
+  fromPerson:{
+    type: String,
+    required: true
+  },
+  reason:{
+    type: String,
+    required: true    
   }
 });
 
