@@ -5,21 +5,28 @@
       {{/each}}
 {{/if}}
 <form method="post" action="/users/application">
-   <div class="form-group">
-    <label>From</label>
-    <input type="text" class="form-control" placeholder="from date" name="from">
+  <div class="form-group">
+    <label>From Date</label>
+    <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" placeholder="from date" name="from" class="form-control"/>
   </div>
+  <!--
+  <input type="text" class="form-control" placeholder="from date" name="from">
+  -->
   <div class="form-group">
     <label>To</label>
-    <input type="text" class="form-control" placeholder="To" name="to">
+    <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" class="form-control" placeholder="To" name="to"/>
   </div>
-   <div class="form-group">
+  <div class="form-group">
     <label>Email</label>
     <input type="email" class="form-control" placeholder="Email" name="email">
   </div>
-   <div class="form-group">
-    <label>Team Leader username</label>
-    <input type="text" class="form-control" placeholder="team leader name" name="teamleader">
+  <div class="form-group">
+    <label>Supervison username</label>
+    <input type="text" class="form-control" placeholder="supervisor name" name="supervisor">
+  </div>
+  <div class="form-group">
+    <label>Reason for leave</label>
+    <textarea rows="10" cols="50" class="form-control" placeholder=""reason" name="reason"></textarea>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

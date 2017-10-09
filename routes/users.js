@@ -3,9 +3,19 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
+var moment = require('moment');
+//moment.format();
 
 var User = require('../models/user');
 var Application = require('../models/appli');
+
+function compare(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var momentB = moment(dateTimeB,"YYYY-MM-DD");
+    if (momentA > momentB) return 1;
+    else if (momentA < momentB) return -1;
+    else return 0;
+}
 
 function loggedIn(req, res, next) {
     if (req.user) {
@@ -23,6 +33,8 @@ function getUsers(req, res) {
         res.json(user);
     });
 }
+
+
 
 // Register
 router.get('/register', loggedIn , function(req, res){
@@ -88,9 +100,6 @@ router.post('/confirm', function(req, res){//	var passwrd = req.user;
  	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync(pass, salt);
 	console.log(req.user.username)
-	console.log(req.user.username)
-	console.log(req.user.username)
-	console.log(req.user.username)
 	if(bcrypt.compareSync(pass, req.user.password)){
 			User.createUser(newUser, function(err, user){
 			if(err) throw err;
@@ -139,14 +148,17 @@ router.post('/application', function(req, res){
 	var from = req.body.from;
 	var to = req.body.to;
 	var email = req.body.email;
-	var teamleader = req.body.teamleader;
-
+	var supervisor = req.body.supervisor;
+	var reason = req.body.reason;
+	console.log(from);
+	console.log(to);
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
 	req.checkBody('email', 'Email is not valid').isEmail();
 	req.checkBody('to', 'To Date is required').notEmpty();
-	req.checkBody('teamleader', 'Team Leader Name is required');
+	req.checkBody('supervisor', 'Supervisor name is required');
+	req.checkBody('reason', 'Reason is required');
 	
 	var errors = req.validationErrors();
 
@@ -154,17 +166,29 @@ router.post('/application', function(req, res){
 		res.render('application',{
 			errors:errors
 		});
-	} else {
+	} else if ( compare(to,from) > 0) {
+		console.log("shit is in");
+		console.log(compare(to,from));
 		var newApplication = new Application({
 			from: from,
 			email:email,
 			to: to,
-			teamleader: teamleader
+			toPerson: supervisor,
+			fromPerson: req.user.username,
+			reason : reason
 		});
 
 		req.flash('success_msg', 'Application Created Successfully');
-		var url1 = '/users/dashboard1'+req.user.username;
+		var url1 = '/users/dashboard1/'+req.user.username;
 		res.redirect(url1);
+	} else if ( compare(to,from) < 0) {
+		req.flash('error_msg', 'The To date cannot be before From date');
+		var url1 = '/users/application/';
+		res.redirect(url1);
+	} else if ( compare(to,from) == 0) {
+		req.flash('error_msg', 'The To date cannot be same as From date');
+		var url1 = '/users/application/';
+		res.redirect(url1);		
 	}
 });
 
@@ -173,6 +197,7 @@ router.post('/application1', function(req, res){
 	var to = req.body.to;
 	var email = req.body.email;
 	var employee = req.body.employee;
+	var reason = req.body.reason;
 	console.log(employee);
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
@@ -180,6 +205,7 @@ router.post('/application1', function(req, res){
 	req.checkBody('email', 'Email is not valid').isEmail();
 	req.checkBody('to', 'To Date is required').notEmpty();
 	req.checkBody('employee', 'Employee Name is required').notEmpty();
+	req.checkBody('reason', 'Reason is required');
 	
 	var errors = req.validationErrors();
 
@@ -187,17 +213,29 @@ router.post('/application1', function(req, res){
 		res.render('application1',{
 			errors:errors
 		});
-	} else {
+	} else if ( compare(to,from) > 0) {
+		console.log("shit is in");
+		console.log(compare(to,from));
 		var newApplication = new Application({
 			from: from,
 			email:email,
 			to: to,
-			employee: employee
+			toPerson: employee,
+			fromPerson: req.user.username,
+			reason : reason
 		});
 
 		req.flash('success_msg', 'Application Created Successfully');
-		var url1 = '/users/dashboard2'+req.user.username;
+		var url1 = '/users/dashboard2/'+req.user.username;
 		res.redirect(url1);
+	} else if ( compare(to,from) < 0) {
+		req.flash('error_msg', 'The To date cannot be before From date');
+		var url1 = '/users/application1/';
+		res.redirect(url1);
+	} else if ( compare(to,from) == 0) {
+		req.flash('error_msg', 'The To date cannot be same as From date');
+		var url1 = '/users/application1/';
+		res.redirect(url1);		
 	}
 });
 
@@ -365,8 +403,13 @@ router.post('/login',
 			req.flash('success_msg', 'You are logged in as employee');
 			var url1 = '/users/dashboard1/'+req.user.username;
 			res.redirect(url1);
+		} else if (user_leve== 'super') {
+			req.flash('success_msg', 'You are logged in as a Supervisor');
+			var url1 = '/users/dashboard2/'+req.user.username;
+			res.redirect(url1);
+//junk code, just to keep past cool
 		} else if (user_leve== 'team') {
-			req.flash('success_msg', 'You are logged in as a Team leader');
+			req.flash('success_msg', 'You are logged in as a Supervisor');
 			var url1 = '/users/dashboard2/'+req.user.username;
 			res.redirect(url1);
 		} else if (user_leve== 'admin') {

@@ -31,6 +31,7 @@
     "express-session": "*",
     "express-validator": "*",
     "mocha": "^4.0.1",
+    "moment": "^2.18.1",
     "mongodb": "*",
     "mongoose": "*",
     "passport": "*",
