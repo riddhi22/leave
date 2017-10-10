@@ -12,6 +12,8 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://test:test@ds157964.mlab.com:57964/harley', {useMongoClient: true});
+mongoose.Promise = require('bluebird');
+
 var db = mongoose.connection;
 
 //var MongoClient = require('mongodb').MongoClient;

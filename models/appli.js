@@ -25,6 +25,14 @@ var appSchema = mongoose.Schema({
   reason:{
     type: String,
     required: true    
+  },
+  status:{
+    type: String,
+    required: true
+  },
+  changesreq:{
+    type: String,
+    required: false
   }
 });
 
