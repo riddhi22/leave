@@ -34,8 +34,11 @@ function getUsers(req, res) {
     });
 }
 
-
-
+/*
+router.post('/checking', function(req, res){
+	var test = req.
+});
+*/
 // Register
 router.get('/register', loggedIn , function(req, res){
 	res.render('register');
@@ -63,11 +66,11 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-router.get('/application', loggedIn , function(req, res){
+router.get('/dashboard1/:username/application', loggedIn , function(req, res){
 	res.render('application');
 });
 
-router.get('/application1', loggedIn , function(req, res){
+router.get('/dashboard2/:username/application1', loggedIn , function(req, res){
 	res.render('application1');
 });
 
@@ -175,9 +178,17 @@ router.post('/application', function(req, res){
 			to: to,
 			toPerson: supervisor,
 			fromPerson: req.user.username,
-			reason : reason
+			reason : reason,
+			status: 'pending'
 		});
-
+		newApplication.save(function (err) {
+  			if (err) {
+  				console.log('nopes again 2'); 
+  				req.flash('error_msg', 'Application not saved, db error');
+				var url1 = '/users/dashboard2/'+req.user.username;
+  			};
+  			console.log('yeahhhh!!');
+		});
 		req.flash('success_msg', 'Application Created Successfully');
 		var url1 = '/users/dashboard1/'+req.user.username;
 		res.redirect(url1);
@@ -222,9 +233,17 @@ router.post('/application1', function(req, res){
 			to: to,
 			toPerson: employee,
 			fromPerson: req.user.username,
-			reason : reason
+			reason : reason,
+			status: 'pending'
 		});
-
+		newApplication.save(function (err) {
+  			if (err) {
+  				console.log('nopes again 2'); 
+  				req.flash('error_msg', 'Application not saved, db error');
+				var url1 = '/users/dashboard2/'+req.user.username;
+  			};
+  			console.log('yeahhhh!! again 2');
+		});
 		req.flash('success_msg', 'Application Created Successfully');
 		var url1 = '/users/dashboard2/'+req.user.username;
 		res.redirect(url1);
@@ -240,7 +259,15 @@ router.post('/application1', function(req, res){
 });
 
 
-router.get('/profile', function(req, res){
+router.get('/dashboard1/:username/profile', function(req, res){
+	res.render('profiledetail' ,{u_name : req.user.name, u_email : req.user.email, u_username : req.user.username, u_userlevel : req.user.user_level});
+});
+
+router.get('/dashboard2/:username/profile', function(req, res){
+	res.render('profiledetail' ,{u_name : req.user.name, u_email : req.user.email, u_username : req.user.username, u_userlevel : req.user.user_level});
+});
+
+router.get('/dashboard3/:username/profile', function(req, res){
 	res.render('profiledetail' ,{u_name : req.user.name, u_email : req.user.email, u_username : req.user.username, u_userlevel : req.user.user_level});
 });
 
@@ -374,6 +401,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 //
+
 
 router.post('/login',
 	passport.authenticate('local', { failureRedirect: '/users/login',
