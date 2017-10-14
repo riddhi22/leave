@@ -1,0 +1,17 @@
+<div>
+<br>
+	<table>
+	<td>From Person</td>
+	<td>From date</td>
+	<td>To Date</td>
+	<td>Status</td>
+	<td>Reason</td>
+	{{#each applis}}
+	<tr>
+		<td>{{this.fromPerson}}</td>
+		<td>{{this.from}}</td>
+		<td>{{this.to}}</td>
+		<td>{{this.status}}</td>
+		<td>{{this.reason}}</td>
+	{{/each}}
+</div>

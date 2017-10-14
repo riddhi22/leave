@@ -11,9 +11,14 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://test:test@ds157964.mlab.com:57964/harley', {useMongoClient: true});
-mongoose.Promise = require('bluebird');
+uri = 'mongodb://test:test@ds157964.mlab.com:57964/harley';
+mongoose.connect(uri, {useMongoClient: true}, function(err){
+  if (err) console.log('failed to connect to db');
+  else
+    console.log('no error in db');
+});
 
+mongoose.Promise = require('bluebird');
 var db = mongoose.connection;
 
 //var MongoClient = require('mongodb').MongoClient;

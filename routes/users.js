@@ -461,3 +461,45 @@ router.get('/logout', function(req, res){
 
 module.exports = { getUsers };
 module.exports = router;
+
+router.get('/dashboard1/:username/formeapplications', function(req, res){
+	var finded = Application.find({toPerson: req.user.username }, function(err, docs) {
+	    if (!err){ 
+	        console.log(docs);
+	        console.log('all inside');
+	        console.log(docs.status);
+	        console.log("yeah!");
+	        console.log(docs[0]);
+	        console.log(docs[0].status);
+	        res.render('allapplications' ,{ applis : docs});
+	   //     process.exit();
+	    } else {throw err;}
+	});
+});	
+
+
+router.get('/dashboard1/:username/myapplications', function(req, res){
+	var finded = Application.find({fromPerson: req.user.username }, function(err, docs) {
+	    if (!err){ 
+	        console.log(docs);
+	        console.log('all inside');
+	        console.log(docs.status);
+	        console.log("yeah!");
+	        console.log(docs[0]);
+	        console.log(docs[0].status);
+	        res.render('allapplications' ,{ applis : docs});
+	   //     process.exit();
+	    } else {throw err;}
+	});
+/*
+	var use = req.user.username;
+	var db = req.db;
+	var collection = db.get('applications');
+	collection.find({ fromPerson:use }).each(function(err,docs){
+		console.log(docs);
+		res.render('allapplications' ,{ applis : docs});
+	});
+*/
+});	
+
+
