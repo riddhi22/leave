@@ -1,0 +1,27 @@
+<div>
+<br>
+	<table>
+<thead>
+    <tr>
+      <th scope="col">From Person</th>
+      <th scope="col">From Date</th>
+      <th scope="col">To Date</th>
+      <th scope="col">Status</th>
+       <th scope="col">Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each applis}}
+	<tr>
+		<td>{{this.fromPerson}}</td>
+		<td>{{this.from}}</td>
+		<td>{{this.to}}</td>
+		<td>{{this.status}}</td>
+		<td>{{this.reason}}</td>
+	</tr>	
+	{{/each}}
+  </tbody>
+</table>
+</div>
+
+
