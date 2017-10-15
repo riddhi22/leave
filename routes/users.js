@@ -491,7 +491,19 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 	    } else {throw err;}
 	});
 });
-
+router.post('/get-maildata',function(req, res){
+	var mail = req.body.mail;
+	var res = req.body.data;
+	Application.find({email: mail}, function(err, docs) {
+	    if (!err){
+	    	docs[0].status = "Add_changes";
+	    	docs[0].changesreq = res;
+            console.log(docs[0].changesreq);	        
+	    }
+	    else {throw err;}
+	});
+//	console.log(find);
+});
 
 router.get('/dashboard1/:username/myapplications', function(req, res){
 	var finded = Application.find({fromPerson: req.user.username }, function(err, docs) {
