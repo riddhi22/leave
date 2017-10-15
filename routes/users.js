@@ -511,3 +511,18 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 router.get('/calendar', loggedIn , function(req, res){
 	res.render('calendar');
 });
+
+router.post('/get-maildata',function(req, res){
+	var mail = req.body.mail;
+	var res = req.body.data;
+	Application.find({email: mail}, function(err, docs) {
+	    if (!err){
+	    	docs[0].status = "Add_changes";
+	    	docs[0].changesreq = res;
+            console.log(docs[0].changesreq);	        
+	    }
+	    else {throw err;}
+	});
+//	console.log(find);
+});
+
