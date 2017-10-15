@@ -82,7 +82,7 @@ router.get('/dashboard2/:username/application1', loggedIn , function(req, res){
 });
 
 router.get('/dashboard1/:username', loggedIn , function(req, res){
-	res.render('dashboard1',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays });
+	res.render('dashboard1',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
 });
 
 router.get('/dashboard2/:username', loggedIn , function(req, res){
@@ -239,6 +239,14 @@ router.post('/application1', function(req, res){
 	req.checkBody('to', 'To Date is required').notEmpty();
 	req.checkBody('employee', 'Employee Name is required').notEmpty();
 	req.checkBody('reason', 'Reason is required');
+
+  User.findOneAndUpdate({ 'username': employee },{ $inc : { "flag" : 1 }}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+
+    console.log(doc);
+});
 
 	var errors = req.validationErrors();
 
