@@ -17,6 +17,13 @@ function compare(dateTimeA, dateTimeB) {
     else return 0;
 }
 
+function dateDiff(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var momentB = moment(dateTimeB,"YYYY-MM-DD");
+    var result = momentB.diff(momentA, 'days');
+    return result;
+}
+
 function loggedIn(req, res, next) {
     if (req.user) {
         next();
@@ -75,11 +82,11 @@ router.get('/dashboard2/:username/application1', loggedIn , function(req, res){
 });
 
 router.get('/dashboard1/:username', loggedIn , function(req, res){
-	res.render('dashboard1',{username : req.params.username });
+	res.render('dashboard1',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays });
 });
 
 router.get('/dashboard2/:username', loggedIn , function(req, res){
-	res.render('dashboard2',{username : req.params.username });
+	res.render('dashboard2',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays });
 });
 
 router.get('/dashboard3/:username', loggedIn , function(req, res){
@@ -93,7 +100,10 @@ router.post('/confirm', function(req, res){//	var passwrd = req.user;
 		email: req.body.u_email,
 		username: req.body.u_username,
 		password: req.body.u_password,
-		user_level: req.body.u_userlevel
+		user_level: req.body.u_userlevel,
+		holidays: 60,
+		halfdays: 0,
+		nonfunc_holidays: 0
 	});
 
 //	var newUser = req.body.User_n;
@@ -153,6 +163,7 @@ router.post('/application', function(req, res){
 	var email = req.body.email;
 	var supervisor = req.body.supervisor;
 	var reason = req.body.reason;
+	var typeApp = req.body.typeApp;
 	console.log(from);
 	console.log(to);
 	// Validation
@@ -169,9 +180,10 @@ router.post('/application', function(req, res){
 		res.render('application',{
 			errors:errors
 		});
-	} else if ( compare(to,from) > 0) {
+	} else if ( compare(to,from) > 0 || typeApp=='halfday') {
 		console.log("shit is in");
 		console.log(compare(to,from));
+		console.log(dateDiff(from,to));
 		var newApplication = new Application({
 			from: from,
 			email:email,
@@ -179,7 +191,8 @@ router.post('/application', function(req, res){
 			toPerson: supervisor,
 			fromPerson: req.user.username,
 			reason : reason,
-			status: 'pending'
+			status: 'pending',
+			typeApp: typeApp
 		});
 		newApplication.save(function (err) {
   			if (err) {
@@ -209,6 +222,7 @@ router.post('/application1', function(req, res){
 	var email = req.body.email;
 	var employee = req.body.employee;
 	var reason = req.body.reason;
+	var typeApp = req.body.typeApp;
 	console.log(employee);
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
@@ -224,7 +238,7 @@ router.post('/application1', function(req, res){
 		res.render('application1',{
 			errors:errors
 		});
-	} else if ( compare(to,from) > 0) {
+	} else if ( compare(to,from) > 0 || typeApp=='halfday') {
 		console.log("shit is in");
 		console.log(compare(to,from));
 		var newApplication = new Application({
@@ -234,7 +248,8 @@ router.post('/application1', function(req, res){
 			toPerson: employee,
 			fromPerson: req.user.username,
 			reason : reason,
-			status: 'pending'
+			status: 'pending',
+			typeApp: typeApp
 		});
 		newApplication.save(function (err) {
   			if (err) {
@@ -491,17 +506,25 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 	   //     process.exit();
 	    } else {throw err;}
 	});
-/*
-	var use = req.user.username;
-	var db = req.db;
-	var collection = db.get('applications');
-	collection.find({ fromPerson:use }).each(function(err,docs){
-		console.log(docs);
-		res.render('allapplications' ,{ applis : docs});
-	});
-*/
+
 });
 
 router.get('/calendar', loggedIn , function(req, res){
 	res.render('calendar');
 });
+
+/*
+		if (typeApp=='func') {
+			var diff = dateDiff(from,to);
+			var newhol = req.user.holidays - diff;
+			console.log(newhol);
+			User.update(
+				{ username: req.user.username },
+				{ $set:
+					{
+						holidays : newhol
+					}
+				}
+			)
+		}
+	*/

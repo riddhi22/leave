@@ -18,6 +18,15 @@ var UserSchema = mongoose.Schema({
 	},
 	user_level: {
 		type: String
+	},
+	holidays: {
+		type: Number
+	},
+	halfdays: {
+		type: Number
+	},
+	nonfunc_holidays: {
+		type: Number
 	}
 });
 
