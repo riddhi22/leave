@@ -33,6 +33,10 @@ var appSchema = mongoose.Schema({
   changesreq:{
     type: String,
     required: false
+  },
+  typeApp:{
+    type: String,
+    required: true
   }
 });
 

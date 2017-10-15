@@ -7,6 +7,7 @@
 <form method="post" action="/users/application">
   <div class="form-group">
     <label>From Date</label>
+    <label><h5>In case of half day, enter same date in From and To</h5></label>
     <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" placeholder="from date" name="from" class="form-control"/>
   </div>
   <!--
@@ -21,8 +22,16 @@
     <input type="email" class="form-control" placeholder="Email" name="email">
   </div>
   <div class="form-group">
-    <label>Supervison username</label>
+    <label>Supervisor username</label>
     <input type="text" class="form-control" placeholder="supervisor name" name="supervisor">
+  </div>
+  <div class="form-group">
+    <label>Type of Application</label>
+    <select type="text" class="form-control" name="typeApp">
+      <option value="func">Functional</option>
+      <option value="nonfunc">Non-functional</option>
+      <option value="halfday">Half day</option>
+    </select>  
   </div>
   <div class="form-group">
     <label>Reason for leave</label>
