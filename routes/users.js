@@ -86,7 +86,7 @@ router.get('/dashboard1/:username', loggedIn , function(req, res){
 });
 
 router.get('/dashboard2/:username', loggedIn , function(req, res){
-	res.render('dashboard2',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays });
+	res.render('dashboard2',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
 });
 
 router.get('/dashboard3/:username', loggedIn , function(req, res){
@@ -166,6 +166,7 @@ router.post('/application', function(req, res){
 	var typeApp = req.body.typeApp;
 	console.log(from);
 	console.log(to);
+
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
@@ -175,8 +176,15 @@ router.post('/application', function(req, res){
 	req.checkBody('reason', 'Reason is required');
 
 	var errors = req.validationErrors();
+  User.findOneAndUpdate({ 'username': supervisor },{ $inc : { "flag" : 1 }}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
 
-	if(errors){
+    console.log(doc);
+});
+
+  	if(errors){
 		res.render('application',{
 			errors:errors
 		});
@@ -299,24 +307,7 @@ router.post('/delete', function(req, res) {
 		//@Him, dekh idhar I am checking--
 		var query = User.findOne({ 'username': username_d });
 		console.log(query);
-		//console.log null deta hai for noone, ab aage kar
-		//
-		//kaun hai?
-		//SUN YR AGAR password galat hai toh again password mangna chahiye na dashboard pe kyon redirect kar raha hai
-		//riddhi
-		//kyon? like github mai bhi, main teko jaise add karna chata hun repo main and mai galt daalta hun to fail hoke wapis aa jta hai
-		//baki kar sakti hai chahe to, bas redirect wala change hoga, bake same rahega
 
-		//okk
-		//abhi kya fir
-		//abhi ye if loop mai ni jaata, and query.select mai error aa jata hai, ki no name obj of null
-//see terminal
-//haan null for name coming
-//name ki jagah user_name then?
-//name to chaiye na? like name, email and user_name in teeno ke le ra hun to display in the template
-//haan
-//dekh to kasie ho, meko samjah ni aa ra
-//bta kuch!
 		if (query==null) {
 			req.flash('error_msg', 'Wrong username, no user found');
         	console.log(req.user.username);
@@ -501,7 +492,7 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 	        console.log(docs.status);
 	        console.log("yeah!");
 	        console.log(docs[0]);
-	        console.log(docs[0].status);
+	       // console.log(docs[0].status);
 	        res.render('allapplications' ,{ applis : docs});
 	   //     process.exit();
 	    } else {throw err;}
@@ -512,19 +503,3 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 router.get('/calendar', loggedIn , function(req, res){
 	res.render('calendar');
 });
-
-/*
-		if (typeApp=='func') {
-			var diff = dateDiff(from,to);
-			var newhol = req.user.holidays - diff;
-			console.log(newhol);
-			User.update(
-				{ username: req.user.username },
-				{ $set:
-					{
-						holidays : newhol
-					}
-				}
-			)
-		}
-	*/
