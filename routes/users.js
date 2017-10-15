@@ -78,7 +78,7 @@ router.get('/dashboard1/:username', loggedIn , function(req, res){
 	res.render('dashboard1',{username : req.params.username });
 });
 
-router.get('/dashboard2/:username', loggedIn , function(req, res){	
+router.get('/dashboard2/:username', loggedIn , function(req, res){
 	res.render('dashboard2',{username : req.params.username });
 });
 
@@ -134,7 +134,7 @@ router.post('/confirm1', function(req, res){//	var passwrd = req.user;
 			var url1 = '/users/dashboard3/'+req.user.username;
     		res.redirect(url1);
     	}
-    });	
+    });
 		req.flash('success_msg', 'User is successfully deleted');
 		var url1 = '/users/dashboard3/'+req.user.username;
 		res.redirect(url1);
@@ -144,7 +144,7 @@ router.post('/confirm1', function(req, res){//	var passwrd = req.user;
 			var url1 = '/users/dashboard3/'+req.user.username;
 			res.redirect(url1);
 		}
-		
+
 });
 
 router.post('/application', function(req, res){
@@ -162,7 +162,7 @@ router.post('/application', function(req, res){
 	req.checkBody('to', 'To Date is required').notEmpty();
 	req.checkBody('supervisor', 'Supervisor name is required');
 	req.checkBody('reason', 'Reason is required');
-	
+
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -183,7 +183,7 @@ router.post('/application', function(req, res){
 		});
 		newApplication.save(function (err) {
   			if (err) {
-  				console.log('nopes again 2'); 
+  				console.log('nopes again 2');
   				req.flash('error_msg', 'Application not saved, db error');
 				var url1 = '/users/dashboard2/'+req.user.username;
   			};
@@ -199,7 +199,7 @@ router.post('/application', function(req, res){
 	} else if ( compare(to,from) == 0) {
 		req.flash('error_msg', 'The To date cannot be same as From date');
 		var url1 = '/users/application/';
-		res.redirect(url1);		
+		res.redirect(url1);
 	}
 });
 
@@ -217,7 +217,7 @@ router.post('/application1', function(req, res){
 	req.checkBody('to', 'To Date is required').notEmpty();
 	req.checkBody('employee', 'Employee Name is required').notEmpty();
 	req.checkBody('reason', 'Reason is required');
-	
+
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -238,7 +238,7 @@ router.post('/application1', function(req, res){
 		});
 		newApplication.save(function (err) {
   			if (err) {
-  				console.log('nopes again 2'); 
+  				console.log('nopes again 2');
   				req.flash('error_msg', 'Application not saved, db error');
 				var url1 = '/users/dashboard2/'+req.user.username;
   			};
@@ -254,7 +254,7 @@ router.post('/application1', function(req, res){
 	} else if ( compare(to,from) == 0) {
 		req.flash('error_msg', 'The To date cannot be same as From date');
 		var url1 = '/users/application1/';
-		res.redirect(url1);		
+		res.redirect(url1);
 	}
 });
 
@@ -291,7 +291,7 @@ router.post('/delete', function(req, res) {
 		//riddhi
 		//kyon? like github mai bhi, main teko jaise add karna chata hun repo main and mai galt daalta hun to fail hoke wapis aa jta hai
 		//baki kar sakti hai chahe to, bas redirect wala change hoga, bake same rahega
-		
+
 		//okk
 		//abhi kya fir
 		//abhi ye if loop mai ni jaata, and query.select mai error aa jata hai, ki no name obj of null
@@ -312,21 +312,21 @@ router.post('/delete', function(req, res) {
 			if (err) {
 		        req.flash('error_msg', 'Wrong username, no user found');
             	console.log(req.user.username);
-				var url1 = '/users/dashboard3/'+req.user.username;	
+				var url1 = '/users/dashboard3/'+req.user.username;
 				throw (err);
 			}
 			var u_name = user.name;
-			console.log('%s %s %s', user.name, user.email, user.user_level); 
+			console.log('%s %s %s', user.name, user.email, user.user_level);
 			var context = {
 		//u_name : name,u_email : email,u_username : username,u_password : password ,u_userlevel : user_level
 				u_name : user.name,
 				u_email : user.email,
 				u_username : username_d,
-				u_userlevel : user.user_level		
-			}	
+				u_userlevel : user.user_level
+			}
 			res.render('confirm1' ,{context});
 			});
-		}	
+		}
 	}
 });
 
@@ -347,7 +347,7 @@ router.post('/register', function(req, res){
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 	req.checkBody('user_level', 'UserLevel is required').notEmpty();
-	
+
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -362,7 +362,7 @@ router.post('/register', function(req, res){
 		u_email : email,
 		u_username : username,
 		u_password : password ,
-		u_userlevel : user_level		
+		u_userlevel : user_level
 	}
 	console.log(req.user.username)
 	console.log(req.user.username)
@@ -407,7 +407,7 @@ router.post('/login',
 	passport.authenticate('local', { failureRedirect: '/users/login',
 									 failureFlash: 'Username or password invalid, please check again' }),
 	function(req, res) {
-//		var user_leve = req.body.user_level; 
+//		var user_leve = req.body.user_level;
 		var username = req.body.username;
 		var query = User.findOne({ 'username': username });
 //		console.log(query);
@@ -415,11 +415,11 @@ router.post('/login',
 		query.exec(function (err, user) {
 			if (err) {
 		        req.flash('error_msg', 'Wrong username, no user found');
-            	res.redirect('/users/login');	
+            	res.redirect('/users/login');
 				throw (err);
 			}
 		var user_leve = user.user_level;
-//		var user_leve = 'admin';		
+//		var user_leve = 'admin';
 //		User.getUserByUsername(username, function(err, user){
 //   		if(err) throw err;
 //   		if(!user){
@@ -450,7 +450,7 @@ router.post('/login',
 		}
 		});
   });
-   
+
  //main wp appl. team leader wala kar deta hun jaldi se
  //tu delete wale ka dhund
 router.get('/logout', function(req, res){
@@ -464,7 +464,7 @@ module.exports = router;
 
 router.get('/dashboard1/:username/formeapplications', function(req, res){
 	var finded = Application.find({toPerson: req.user.username }, function(err, docs) {
-	    if (!err){ 
+	    if (!err){
 	        console.log(docs);
 	        console.log('all inside');
 	        console.log(docs.status);
@@ -475,12 +475,12 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 	   //     process.exit();
 	    } else {throw err;}
 	});
-});	
+});
 
 
 router.get('/dashboard1/:username/myapplications', function(req, res){
 	var finded = Application.find({fromPerson: req.user.username }, function(err, docs) {
-	    if (!err){ 
+	    if (!err){
 	        console.log(docs);
 	        console.log('all inside');
 	        console.log(docs.status);
@@ -500,6 +500,8 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 		res.render('allapplications' ,{ applis : docs});
 	});
 */
-});	
+});
 
-
+router.get('/calendar', loggedIn , function(req, res){
+	res.render('calendar');
+});
