@@ -27,6 +27,9 @@ var UserSchema = mongoose.Schema({
 	},
 	nonfunc_holidays: {
 		type: Number
+	},
+	flag: {
+		type: Number
 	}
 });
 
