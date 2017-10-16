@@ -3,6 +3,7 @@
 	<table>
 <thead>
     <tr>
+      <th>oid</th>
       <th scope="col">From Person</th>
       <th scope="col">From Date</th>
       <th scope="col">To Date</th>
@@ -13,11 +14,17 @@
   <tbody>
     {{#each applis}}
 	<tr>
+		<td>{{this._id}}
 		<td>{{this.fromPerson}}</td>
 		<td>{{this.from}}</td>
 		<td>{{this.to}}</td>
 		<td width="150%">
-			<button class="btn btn-info">Accept</button> <button class="btn btn-info">Reject</button> 
+			<form action="/users/applicationchange/accept" method="POST">
+			<input type="hidden" name="ouid" value={{this._id}}>
+			<button class="btn btn-success" type="submit">Accept</button> 
+			<button class="btn btn-danger" type="submit" formaction="/users/applicationchange/reject">Reject</button>
+			<button class="btn btn-warning" type="submit" formaction="/users/application/reqchang">Request Changes</button>
+			</form> 
 		</td>
 		<td>{{this.reason}}</td>
 	</tr>	

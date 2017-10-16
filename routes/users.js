@@ -490,6 +490,8 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 	    } else {throw err;}
 	});
 });
+
+/*
 router.post('/get-maildata',function(req, res){
 	var mail = req.body.mail;
 	var res = req.body.data;
@@ -503,7 +505,7 @@ router.post('/get-maildata',function(req, res){
 	});
 //	console.log(find);
 });
-
+*/
 router.get('/dashboard1/:username/myapplications', function(req, res){
 	var finded = Application.find({fromPerson: req.user.username }, function(err, docs) {
 	    if (!err){
@@ -569,3 +571,64 @@ router.get('/calendar', loggedIn , function(req, res){
 			)
 		}
 	*/
+
+router.post('/applicationchange/accept', function(req, res){
+	var id = req.body.ouid;
+	console.log(id);
+});
+
+
+router.post('/applicationchange/reject', function(req, res){
+	var id = req.body.ouid;
+	console.log(id);
+});
+
+router.post('/application/reqchang', function(req, res){
+	var id = req.body.ouid;
+	console.log(id);
+	
+	Application.getAppByOID(id, function(err, appli){
+   	if(err) throw err;
+   	console.log(appli);
+   	console.log(appli.from);
+    res.render('reqchanges', { app: appli });
+	});
+});
+
+router.post('/application/reqchanges', function(req, res){
+	var id = req.body.ouid;
+	var reason = req.body.reason;
+	console.log(id);
+	console.log(reason);
+	//we have oid of application! (1)
+
+	Application.getAppByOID(id, function(err, appli){
+   	if(err) throw err;
+   	console.log(appli);
+   	//now we have applications! (2)
+    console.log(appli.from);
+    //the appli is of type Application in proper JSON (3)
+    appli.changesreq = reason;
+    appli.save(function(err){
+    	if (err) {
+    		console.log('you picked an application without typeApp or Something is wrong');
+    	};
+    });
+    console.log(appli);
+    user_leve = req.user.user_level;
+    if (user_leve== 'employee') {
+	    	req.flash('success_msg', 'Changes requested Successfully');
+			var url1 = '/users/dashboard1/'+req.user.username;
+			res.redirect(url1);
+		} else if (user_leve== 'super') {
+		    req.flash('success_msg', 'Changes requested Successfully');
+			var url1 = '/users/dashboard2/'+req.user.username;
+			res.redirect(url1);
+//junk code, just to keep past cool
+		} else if (user_leve== 'team') {
+		    req.flash('success_msg', 'Changes requested Successfully');
+			var url1 = '/users/dashboard2/'+req.user.username;
+			res.redirect(url1);
+		};
+   });
+});

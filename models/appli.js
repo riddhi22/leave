@@ -42,3 +42,9 @@ var appSchema = mongoose.Schema({
 
 var Application = module.exports = mongoose.model('Application', appSchema);
 
+module.exports.getAppByOID = function(appli, callback){
+  var query = { _id : appli};
+  Application.findOne(query, callback);
+}
+
+
