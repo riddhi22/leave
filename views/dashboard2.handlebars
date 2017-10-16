@@ -1,11 +1,19 @@
 <h4 class="head" style="font-size:2.5em;text-align:center;background-color:#eee";><b>Dashboard for Supervisor</b></h4>
 <h3>Welcome {{{username}}}</h3><br>
-<br>Functional Holidays left: {{{h1}}}
-<br>Halfdays taken: {{{h2}}}
-<br>Non functional holidays taken: {{{h3}}}
-<br>Notifications: {{{flag}}}
+<br><nav role="navigation">
+  <div id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu">
+      <li>Functional Holidays left: {{{h1}}} </li>
+      <li>Halfdays taken: {{{h2}}} </li>
+      <li>Non functional holidays taken: {{{h3}}} </li>
+    </ul>
+  </div>
+</nav>
 <br>
-<div id="sum_box" class="row mbl">
+<div id="sum_box" class="row mbl" style="margin-left:50px">
 							<div class="col-sm-4 col-md-4">
                                 <div class="panel income db mbm" style="width:150%;margin-left:-100%;height:130px;background-color:#38acec";>
                                     <a href = "/users/dashboard2/{{user.username}}/profile">
@@ -51,44 +59,47 @@
                             </div>
 
  </div>
-<div id="sum_box" class="row mbl">
+<div id="sum_box" class="row mbl" style="margin-left:50px">
 							<div class="col-sm-4 col-md-4">
                                 <div class="panel income db mbm" style="width:150%;margin-left:-100%;height:130px;background-color:#cb4335";>
+                                    
                                     <div class="panel-body">
-
+                                    <a href = "/users/dashboard2/{{user.username}}/formtapplications">
                                         <p class="icon">
                                            <i class="fa fa-id-card" aria-hidden="true"></i>
                                         </p>
                                         <h6 class="value" style="font-size:1.5em";>
-                                            <span>View Application</span></h6>
+                                            <span>Review Other Applications</h6>
+					</a>
+
                                     </div>
 																	
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
-															<div class="panel profit db mbm" style="width:150%;margin-left:-50%;height:130px;background-color:#38acec";>
-																	<a href = "/users/calendar">
-																	<div class="panel-body">
-																			<p class="icon">
-																					<i class="fa fa-calendar" style="color:#fff;font-size:70px;"></i>
-																			</p>
-																			 <h4 class="value" style="font-size:1.5em">
-																					<span>Holiday Calender</span></h4>
-
-																	</div>
-																</a>
-															</div>
+				<div class="panel profit db mbm" style="width:150%;margin-left:-50%;height:130px;background-color:#38acec";>
+					<a href = "/users/calendar">
+					<div class="panel-body">
+						<p class="icon">
+						<i class="fa fa-calendar" style="color:#fff;font-size:70px;"></i>
+						</p>
+						<h4 class="value" style="font-size:1.5em">
+						<span>Holiday Calender</span></h4>
+					</div>
+				</a>
+			</div>
                             </div>
 
                             <div class="col-sm-4 col-md-4">
                                 <div class="panel task db mbm" style="width:150%;height:130px;background-color:#ffa500";>
                                     <div class="panel-body">
+                                    <a href = "/users/dashboard2/{{user.username}}/mytapplications">
                                         <p class="icon">
                                            <i class="icon fa fa-hand-o-up" aria-hidden="true"></i>
                                         </p>
                                         <h6 class="value"  style="font-size:1.5em">
                                             <span>Check Status</span></h6>
-
+					</a>
 
                                     </div>
                                 </div>

@@ -45,7 +45,95 @@
 .panel.task.db.mbm{
         background-color: #f0ad4e;
 }
+table {
+  border: 2px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 150%;
+  table-layout: fixed;
+  margin-left:-100px;
+}
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+table tr {
+  background: #f8f8f8;
+  border: 2px solid grey;
+  padding: .35em;
+}
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+table th {
+  font-size: 1em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background-color:#eee;
+  height:50px;
+}
+table td .space{
+	width:50px;
+}
 
+#menu
+{
+  position: absolute;
+  width: 250px;
+  margin-left:-52%;
+  margin-top:-40%;
+  padding: 50px;
+  padding-top: 125px;
+  height:150%;
+  background: #ededed;
+  list-style-type: none;
+}
 
- 
+#menu li
+{
+  padding: 10px 0;
+  font-size: 1.3em;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  table td:before {
+    
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
 

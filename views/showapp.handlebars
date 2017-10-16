@@ -1,0 +1,12 @@
+{{#if allapp}}
+         {{#each allapp}}
+            <div>
+                   <p>{{ email}}</p>
+                   <p>{{ reason}}</p>
+                            <form method="post" action="/users/get-maildata" id="send_profile">  
+                           <input type="text" name="data">    
+                          <input type="submit" value="Submit">
+                      </form>  
+            </div>
+        {{/each}}
+{{/if}}

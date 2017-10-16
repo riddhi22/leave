@@ -1,15 +1,6 @@
 <div>
 <br>
 	<table>
-
-	<td>From Person</td>
-	<td>From date</td>
-	<td>To Date</td>
-	<td>Status</td>
-	<td>Reason</td>
-	<td>E-mail</td>
-	{{#each applis}}
-
 <thead>
     <tr>
       <th scope="col">To Person</th>
@@ -27,26 +18,10 @@
 		<td>{{this.to}}</td>
 		<td>{{this.status}}</td>
 		<td>{{this.reason}}</td>
-
-
-
-		<td>{{this.email}}</td>
-    </tr>
-        <form method="post" action="\users\get-maildata">
-        	<input type="text" name="data">    
-            <input type="submit" value="Submit">
-             <input type="hidden" name="mail" value={{{this.email}}}>
-        </form>
-	{{/each}}
-</div>
-
-
 	</tr>	
-
 	{{/each}}
   </tbody>
 </table>
 </div>
-
 
 
