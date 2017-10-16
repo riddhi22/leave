@@ -1,48 +1,56 @@
 <h4 class="head" style="font-size:2.5em;text-align:center;background-color:#eee";><b>Dashboard for Employee</b></h4>
 
 <p class="emp_dash" style="font-size:2em;font-weight:bold";>Welcome  {{{username}}}</p>
-<br>Functional Holidays left: {{{h1}}}
-<br>Halfdays taken: {{{h2}}}
-<br>Non functional holidays taken: {{{h3}}}
-<br>Notifications: {{{flag}}}
 
-<div id="sum_box" class="row mbl">
+<br><nav role="navigation">
+  <div id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu">
+      <li>Functional Holidays left: {{{h1}}} </li>
+      <li>Halfdays taken: {{{h2}}} </li>
+      <li>Non functional holidays taken: {{{h3}}} </li>
+    </ul>
+  </div>
+</nav>
+<div id="sum_box" class="row mbl" style="margin-left:50px">
 							<div class="col-sm-4 col-md-4">
-                                <div class="panel income db mbm" style="width:120%;margin-left:-35%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel income db mbm" style="width:120%;margin-left:-35%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
                                     <a href = "/users/dashboard1/{{user.username}}/profile">
                                     <div class="panel-body">
                                         <p class="icon">
-                                            <i class="fa fa-user" style="color:#2E9AFE;font-size:70px;"></i>
+                                            <i class="fa fa-user" style="color:#2E9AFE;font-size:50px;"></i>
                                         </p>
-                                          <h4 class="value" style="font-size:1.5em";>
-                                            <span>Employee Profile</h4>
+                                          <h4 class="value" style="font-size:1.4em";>
+                                            <span><b>Employee Profile</b></h4>
 
                                     </div>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
-                                <div class="panel profit db mbm" style="width:120%;margin-left:-18%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel profit db mbm" style="width:120%;margin-left:-18%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
                                     <a href = "/users/dashboard1/{{user.username}}/myapplications">
                                     <div class="panel-body">
                                         <p class="icon">
-                                            <i class="fa fa-archive" style="color:#2E9AFE;font-size:70px;"></i>
+                                            <i class="fa fa-archive" style="color:#2E9AFE;font-size:50px;"></i>
                                         </p>
-                                          <h4 class="value" style="font-size:1.5em">
-                                           <span>Check Status</span></h4>
+                                          <h4 class="value" style="font-size:1.4em">
+                                           <span><b>Check Status</b></span></h4>
                                     </div>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
-                                <div class="panel profit db mbm" style="width:120%;margin-right:10%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel profit db mbm" style="width:120%;margin-right:10%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
                                    <a href = "/users/dashboard1/{{user.username}}/application">
                                     <div class="panel-body">
                                         <p class="icon">
-                                             <i class="fa fa-calendar-o" style="color:#2E9AFE;font-size:70px;"></i>
+                                             <i class="fa fa-calendar-o" style="color:#2E9AFE;font-size:50px;"></i>
                                         </p>
-                                           <h4 class="value" style="font-size:1.5em">
-                                           <span>Apply for leave</span></h4>
+                                           <h4 class="value" style="font-size:1.4em">
+                                           <span><b>Apply for leave</b></span></h4>
 
 
                                     </div>
@@ -51,42 +59,42 @@
                             </div>
 
  </div>
-<div id="sum_box" class="row mbl">
+<div id="sum_box" class="row mbl" style="margin-left:50px">
 									<div class="col-sm-4 col-md-4">
-                                <div class="panel income db mbm" style="width:120%;margin-left:-35%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel income db mbm" style="width:120%;margin-left:-35%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
 																		<a href = "/users/calendar">
 																	  <div class="panel-body">
                                         <p class="icon">
-                                            <i class="fa fa-calendar" style="color:#2E9AFE;font-size:70px;"></i>
+                                            <i class="fa fa-calendar" style="color:#2E9AFE;font-size:50px;"></i>
                                         </p>
-                                         <h4 class="value" style="font-size:1.5em">
-                                            <span>Holiday Calender</span></h4>
+                                         <h4 class="value" style="font-size:1.4em">
+                                            <span><b>Holiday Calender</b></span></h4>
 
                                     </div>
 																	</a>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
-                                <div class="panel profit db mbm" style="width:120%;margin-left:-18%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel profit db mbm" style="width:120%;margin-left:-18%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
                                     <a href = "/users/dashboard1/{{user.username}}/formeapplications">
                                     <div class="panel-body">
                                         <p class="icon">
-                                            <i class="fa fa-folder-open-o" style="color:#2E9AFE;font-size:70px;"></i>
+                                            <i class="fa fa-folder-open-o" style="color:#2E9AFE;font-size:35px;"></i>
                                         </p>
-                                        <h4 class="value" style="font-size:1.5em">
-                                           <span>Review other applications</span></h4>
+                                        <h4 class="value" style="font-size:1.1em">
+                                           <span><b>Review other applications</b></span></h4>
                                     </div>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
-                                <div class="panel profit db mbm" style="width:120%;margin-right:10%;height:180px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
+                                <div class="panel profit db mbm" style="width:120%;margin-right:10%;height:150px;background-color:#eee;border:2px solid #ccc;border-radius:30px";>
                                     <div class="panel-body">
                                         <p class="icon">
-                                             <i class="fa fa-signal" style="color:#2E9AFE;font-size:70px;"></i>
+                                             <i class="fa fa-signal" style="color:#2E9AFE;font-size:50px;"></i>
                                         </p>
-                                           <h4 class="value" style="font-size:1.5em">
-                                           <span>Past record</span></h4>
+                                           <h4 class="value" style="font-size:1.4em">
+                                           <span><b>Past record</b></span></h4>
 
 
                                     </div>

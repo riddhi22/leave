@@ -50,8 +50,9 @@ table {
   border-collapse: collapse;
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 150%;
   table-layout: fixed;
+  margin-left:-100px;
 }
 table caption {
   font-size: 1.5em;
@@ -68,11 +69,33 @@ table td {
   text-align: center;
 }
 table th {
-  font-size: em;
+  font-size: 1em;
   letter-spacing: .1em;
   text-transform: uppercase;
   background-color:#eee;
   height:50px;
+}
+table td .space{
+	width:50px;
+}
+
+#menu
+{
+  position: absolute;
+  width: 250px;
+  margin-left:-52%;
+  margin-top:-40%;
+  padding: 50px;
+  padding-top: 125px;
+  height:150%;
+  background: #ededed;
+  list-style-type: none;
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 1.3em;
 }
 @media screen and (max-width: 600px) {
   table {
@@ -103,10 +126,7 @@ table th {
     text-align: right;
   }
   table td:before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
+    
     content: attr(data-label);
     float: left;
     font-weight: bold;
@@ -116,5 +136,4 @@ table th {
     border-bottom: 0;
   }
 }
- 
 
