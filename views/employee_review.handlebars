@@ -7,6 +7,7 @@
       <th scope="col">From Date</th>
       <th scope="col">To Date</th>
       <th scope="col">Status</th>
+      <th scope="col">Changes</th>
        <th scope="col">Reason</th>
     </tr>
   </thead>
@@ -17,8 +18,10 @@
 		<td>{{this.from}}</td>
 		<td>{{this.to}}</td>
 		<td width="150%">
-			<button class="btn btn-info">Accept</button> <button class="btn btn-info">Reject</button> 
+			<button class="btn btn-info">Accept</button> <button class="btn btn-info">Reject</button>
+
 		</td>
+
 		<td>{{this.reason}}</td>
 	</tr>	
 	{{/each}}

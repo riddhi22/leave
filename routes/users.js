@@ -492,11 +492,13 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 });
 router.post('/get-maildata',function(req, res){
 	var mail = req.body.mail;
-	var res = req.body.data;
-	Application.find({email: mail}, function(err, docs) {
+	var ans = req.body.data;
+	var from = req.body.from;
+	var to = req.body.to;
+	Application.find({email: mail,from: from,to: to}, function(err, docs) {
 	    if (!err){
 	    	docs[0].status = "Add_changes";
-	    	docs[0].changesreq = res;
+	    	docs[0].changesreq = ans;
             console.log(docs[0].changesreq);	        
 	    }
 	    else {throw err;}
@@ -554,20 +556,7 @@ router.get('/calendar', loggedIn , function(req, res){
 	res.render('calendar');
 });
 
-<<<<<<< HEAD
-router.post('/get-maildata',function(req, res){
-	var mail = req.body.mail;
-	var res = req.body.data;
-	Application.find({email: mail}, function(err, docs) {
-	    if (!err){
-	    	docs[0].status = "Add_changes";
-	    	docs[0].changesreq = res;
-            console.log(docs[0].changesreq);	        
-	    }
-	    else {throw err;}
-	});
-//	console.log(find);
-});
+
 
 
 /*
