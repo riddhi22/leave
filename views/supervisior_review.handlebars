@@ -18,7 +18,12 @@
 		<td>{{this.from}}</td>
 		<td>{{this.to}}</td>
 		<td width="150%">
-			<button class="btn btn-info">Accept</button> <button class="btn btn-info">Reject</button> 
+			<form action="/users/applicationchange/accept" method="POST">
+			<input type="hidden" name="ouid" value={{this._id}}>
+			<button class="btn btn-success" type="submit">Accept</button> 
+			<button class="btn btn-danger" type="submit" formaction="/users/applicationchange/reject">Reject</button>
+			<button class="btn btn-warning" type="submit" formaction="/users/application/reqchang">Request Changes</button>
+			</form> 
 		</td>
 		<td>{{this.reason}}</td>
 	</tr>	
