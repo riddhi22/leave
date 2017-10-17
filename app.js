@@ -24,12 +24,13 @@ var db = mongoose.connection;
 //var MongoClient = require('mongodb').MongoClient;
 //var url = "";
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 // Init App
 var app = express();
-
+var helpers = require('handlebars-helpers')();
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));

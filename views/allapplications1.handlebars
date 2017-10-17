@@ -14,8 +14,8 @@
     {{#each applis}}
 	<tr>
 		<td>{{this.toPerson}}</td>
-		<td>{{this.from}}</td>
-		<td>{{this.to}}</td>
+    <td>{{moment this.from format="YYYY-MM-DD"}}</td>
+    <td>{{moment this.to format="YYYY-MM-DD"}}</td>
 		<td>{{this.status}}</td>
 		<td>{{this.reason}}</td>
 	</tr>	
