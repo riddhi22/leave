@@ -632,7 +632,7 @@ router.post('/application/reqchanges', function(req, res){
     console.log(appli.from);
     //the appli is of type Application in proper JSON (3)
     appli.changesreq = reason;
-    appli.status="reqchanges"
+    appli.status="reqchanges";
     appli.save(function(err){
     	if (err) {
     		console.log('you picked an application without typeApp or Something is wrong');
