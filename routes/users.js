@@ -494,11 +494,13 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 /*
 router.post('/get-maildata',function(req, res){
 	var mail = req.body.mail;
-	var res = req.body.data;
-	Application.find({email: mail}, function(err, docs) {
+	var ans = req.body.data;
+	var from = req.body.from;
+	var to = req.body.to;
+	Application.find({email: mail,from: from,to: to}, function(err, docs) {
 	    if (!err){
 	    	docs[0].status = "Add_changes";
-	    	docs[0].changesreq = res;
+	    	docs[0].changesreq = ans;
             console.log(docs[0].changesreq);	        
 	    }
 	    else {throw err;}
@@ -555,6 +557,9 @@ router.get('/dashboard2/:username/mytapplications', function(req, res){
 router.get('/calendar', loggedIn , function(req, res){
 	res.render('calendar');
 });
+
+
+
 
 /*
 		if (typeApp=='func') {
@@ -632,7 +637,11 @@ router.post('/application/reqchanges', function(req, res){
     console.log(appli.from);
     //the appli is of type Application in proper JSON (3)
     appli.changesreq = reason;
+
     appli.status="reqchanges";
+
+    appli.flag = "true";
+
     appli.save(function(err){
     	if (err) {
     		console.log('you picked an application without typeApp or Something is wrong');
@@ -655,4 +664,30 @@ router.post('/application/reqchanges', function(req, res){
 			res.redirect(url1);
 		};
    });
+});
+
+router.post('/getapp', function(req, res){
+	var id = req.body.ouid;
+	console.log(id);
+	Application.getAppByOID(id, function(err, appli){
+		if(err) throw err;
+		console.log(appli.reason);
+	res.render('app', { app: appli });
+	});
+
+});
+
+router.post('/edit', function(req, res){
+	Application.findOneAndUpdate({ _id: req.body._id }, {$set: {
+        reason: req.body.description,
+     }
+}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+    var url2 = '/users/dashboard1/'+req.user.username+'/myapplications';
+    //change this
+    res.redirect(url2);
+}
+);
 });

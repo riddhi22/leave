@@ -22,6 +22,10 @@ var appSchema = mongoose.Schema({
     type: String,
     required: true
   },
+   flag:{
+    type: Boolean,
+    required: false
+  },
   reason:{
     type: String,
     required: true    
