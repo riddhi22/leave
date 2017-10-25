@@ -1,0 +1,8 @@
+<form action="/users/edit" method="POST">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" class="form-control">{{{app.reason}}}</textarea>
+            </div>
+            <input type="hidden" name="_id" value="{{{app._id}}}">
+            <button type="submit" class="btn btn-info">Submit</button>
+        </form>

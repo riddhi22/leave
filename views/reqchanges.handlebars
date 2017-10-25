@@ -4,11 +4,11 @@ Application written by <b>{{app.fromPerson}}</b> || Email <b>{{app.email}}</b>
 <br>Leave requested from <b>{{moment app.from format="YYYY-MM-DD"}}</b> to <b>{{moment app.to format="YYYY-MM-DD"}}</b>
 <br>of type <b>{{app.typeApp}}</b>
 <br>
-<br>Reason given:-
+<br><b>Reason given:-</b>
 <br>{{app.reason}}
 
 <form action="/users/application/reqchanges" method="POST">
 <input type="text" name="reason">
 <input type="hidden" name="ouid" value={{app._id}}>
-<button class="btn btn-info" type="submit">Request these Changes</button>
+<button class="btn btn-success" style="background-color:#ccc;color:black;" type="submit">Request these Changes</button>
 </form>

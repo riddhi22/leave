@@ -579,13 +579,36 @@ router.get('/calendar', loggedIn , function(req, res){
 
 router.post('/applicationchange/accept', function(req, res){
 	var id = req.body.ouid;
+	var cha='accepted';
 	console.log(id);
+	Application.getAppByOID(id, function(err, appli){
+	if(!err){
+	//console.log(appli.status);
+	appli.status=cha;
+	console.log(appli.status);
+	var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+			res.redirect(url1);
+	appli.save(function(err){
+    });	
+	}
+     });	
 });
-
 
 router.post('/applicationchange/reject', function(req, res){
 	var id = req.body.ouid;
+	var cha='rejected';
 	console.log(id);
+	Application.getAppByOID(id, function(err, appli){
+	if(!err){
+	console.log(appli.status);
+	appli.status=cha;
+	console.log(appli.status);
+	var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+			res.redirect(url1);
+	appli.save(function(err){
+    });	
+	}
+	});	
 });
 
 router.post('/application/reqchang', function(req, res){
@@ -614,6 +637,7 @@ router.post('/application/reqchanges', function(req, res){
     console.log(appli.from);
     //the appli is of type Application in proper JSON (3)
     appli.changesreq = reason;
+    appli.status="reqchanges";
     appli.save(function(err){
     	if (err) {
     		console.log('you picked an application without typeApp or Something is wrong');
