@@ -637,7 +637,11 @@ router.post('/application/reqchanges', function(req, res){
     console.log(appli.from);
     //the appli is of type Application in proper JSON (3)
     appli.changesreq = reason;
+
     appli.status="reqchanges";
+
+    appli.flag = "true";
+
     appli.save(function(err){
     	if (err) {
     		console.log('you picked an application without typeApp or Something is wrong');
@@ -662,3 +666,28 @@ router.post('/application/reqchanges', function(req, res){
    });
 });
 
+router.post('/getapp', function(req, res){
+	var id = req.body.ouid;
+	console.log(id);
+	Application.getAppByOID(id, function(err, appli){
+		if(err) throw err;
+		console.log(appli.reason);
+	res.render('app', { app: appli });
+	});
+
+});
+
+router.post('/edit', function(req, res){
+	Application.findOneAndUpdate({ _id: req.body._id }, {$set: {
+        reason: req.body.description,
+     }
+}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+    var url2 = '/users/dashboard1/'+req.user.username+'/myapplications';
+    //change this
+    res.redirect(url2);
+}
+);
+});
