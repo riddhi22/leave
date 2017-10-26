@@ -28,13 +28,23 @@ var db = mongoose.connection;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+
 // Init App
 var app = express();
 var helpers = require('handlebars-helpers')();
+
+var hbsHelpers = exphbs.create({
+    helpers: require('./helpers/handlebars.js').helpers,
+    defaultLayout: 'layout',
+    extname: 'handlebars'
+});
+
+app.engine('handlebars', hbsHelpers.engine);
+
 // View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+//app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 // BodyParser Middleware
 app.use(bodyParser.json());
