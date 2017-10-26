@@ -484,8 +484,27 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 	        console.log(docs.status);
 	        console.log("yeah!");
 	        console.log(docs[0]);
-	        console.log(docs[0].status);
-	        res.render('employee_review' ,{ applis : docs});
+	        //	        console.log(docs[0].status);
+			var counter;
+	        Application.count({toPerson: req.user.username }, function(err, c) {
+	        	if (err) {
+	        		console.log("error");
+	        	} else {
+	        		counter=c;
+	        		console.log(c);
+	        	}
+	        }); 
+	        	        //	        console.log(docs[0].status);
+			if (counter==0){
+				console.log("empty huzzah !2");
+				req.flash('error_msg', 'No applications addressed to you found');
+				var url1 = '/users/dashboard1/'+req.user.username;
+				console.log(url1);
+				res.redirect(url1);
+			}
+			else {
+	        	res.render('employee_review' ,{ applis : docs});
+	   		}
 	   //     process.exit();
 	    } else {throw err;}
 	});
@@ -516,9 +535,27 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 	        console.log(docs.status);
 	        console.log("yeah!");
 	        console.log(docs[0]);
-
-	        console.log(docs[0].status);
-	        res.render('allapplications1' ,{ applis : docs});
+	        //	        console.log(docs[0].status);
+			var counter;
+	        Application.count({toPerson: req.user.username }, function(err, c) {
+	        	if (err) {
+	        		console.log("error");
+	        	} else {
+	        		counter=c;
+	        		console.log(c);
+	        	}
+	        }); 
+	        	        //	        console.log(docs[0].status);
+			if (counter==0){
+				console.log("empty huzzah !2");
+				req.flash('error_msg', 'No applications written by you found');
+				var url1 = '/users/dashboard1/'+req.user.username;
+				console.log(url1);
+				res.redirect(url1);
+			}
+			else {	        
+				res.render('allapplications1' ,{ applis : docs});
+	   		}
 	   //     process.exit();
 	    } else {throw err;}
 	});
@@ -532,8 +569,26 @@ router.get('/dashboard2/:username/formtapplications', function(req, res){
 	        console.log(docs.status);
 	        console.log("yeah!");
 	        console.log(docs[0]);
-	        console.log(docs[0].status);
-	        res.render('supervisior_review' ,{ applis : docs});
+	        var counter;
+	        Application.count({toPerson: req.user.username }, function(err, c) {
+	        	if (err) {
+	        		console.log("error");
+	        	} else {
+	        		counter=c;
+	        		console.log(c);
+	        	}
+	        }); 
+	        	        //	        console.log(docs[0].status);
+			if (counter==0){
+				console.log("empty huzzah !2");
+				req.flash('error_msg', 'No applications addressed to you found');
+				var url1 = '/users/dashboard2/'+req.user.username;
+				console.log(url1);
+				res.redirect(url1);
+			}
+			else {
+	        	res.render('supervisior_review' ,{ applis : docs});
+	   		}
 	   //     process.exit();
 	    } else {throw err;}
 	});
@@ -546,8 +601,27 @@ router.get('/dashboard2/:username/mytapplications', function(req, res){
 	        console.log(docs.status);
 	        console.log("yeah!");
 	        console.log(docs[0]);
-	        console.log(docs[0].status);
-	        res.render('allapplications1' ,{ applis : docs});
+	        	        //	        console.log(docs[0].status);
+			var counter;
+	        Application.count({toPerson: req.user.username }, function(err, c) {
+	        	if (err) {
+	        		console.log("error");
+	        	} else {
+	        		counter=c;
+	        		console.log(c);
+	        	}
+	        }); 
+	        	        //	        console.log(docs[0].status);
+			if (counter==0){
+				console.log("empty huzzah !2");
+				req.flash('error_msg', 'No applications written by you found');
+				var url1 = '/users/dashboard2/'+req.user.username;
+				console.log(url1);
+				res.redirect(url1);
+			}
+			else {
+	        	res.render('allapplications1' ,{ applis : docs});
+	   		}
 	   //     process.exit();
 	    } else {throw err;}
 	});
@@ -678,16 +752,18 @@ router.post('/getapp', function(req, res){
 });
 
 router.post('/edit', function(req, res){
-	Application.findOneAndUpdate({ _id: req.body._id }, {$set: {
-        reason: req.body.description,
-     }
-}, function(err, doc){
-    if(err){
-        console.log("Something wrong when updating data!");
-    }
-    var url2 = '/users/dashboard1/'+req.user.username+'/myapplications';
-    //change this
-    res.redirect(url2);
-}
-);
+	Application.findOneAndUpdate({ _id: req.body._id }, 
+		{$set: {
+        	reason: req.body.description,
+    	 	}
+		}, 
+		function(err, doc){
+    	if(err){
+        	console.log("Something wrong when updating data!");
+    	}
+    	var url2 = '/users/dashboard1/'+req.user.username+'/myapplications';
+    	//change this
+    	res.redirect(url2);
+		}
+	);
 });
