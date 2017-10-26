@@ -7,33 +7,30 @@
       <th scope="col">From Date</th>
       <th scope="col">To Date</th>
       <th scope="col">Status</th>
-        <th scope="col">Reqchanges</th>
-       <th scope="col">Reason</th>
-
-       {{#if this.flag}}
-       <th scope="col">Make_change</th>
-        {{/if}}
+      <th scope="col">Reqchanges</th>
+      <th scope="col">Reason</th>
+      {{#if this.flag}}
+      <th scope="col">Make_change</th>
+      {{/if}}
     </tr>
   </thead>
   <tbody>
     {{#each applis}}
-	<tr>
-		<td>{{this.toPerson}}</td>
-    <td>{{moment this.from format="YYYY-MM-DD"}}</td>
-    <td>{{moment this.to format="YYYY-MM-DD"}}</td>
-		<td>{{this.status}}</td>
-    <td>{{this.changesreq}}</td>
-		<td>{{this.reason}}</td>
-     {{#if this.flag}}
-     <form action="/users/getapp" method="POST">
-        
+    <tr>
+  		<td>{{this.toPerson}}</td>
+      <td>{{moment this.from format="YYYY-MM-DD"}}</td>
+      <td>{{moment this.to format="YYYY-MM-DD"}}</td>
+  		<td>{{this.status}}</td>
+      <td>{{this.changesreq}}</td>
+  		<td>{{this.reason}}</td>
+      {{#if this.flag}}
+      <form action="/users/getapp" method="POST">  
         <input type="hidden" name="ouid" value={{this._id}}>
         <td><button class="btn-btn success" value="Make_change" name="changes"></button></td>
-     </form>
-    
-    {{/if}}
-	</tr>	
-	{{/each}}
+      </form>
+      {{/if}}
+	  </tr>	
+	  {{/each}}
   </tbody>
 </table>
 </div>

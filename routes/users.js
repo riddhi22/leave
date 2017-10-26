@@ -477,7 +477,7 @@ module.exports = { getUsers };
 module.exports = router;
 
 router.get('/dashboard1/:username/formeapplications', function(req, res){
-	var finded = Application.find({toPerson: req.user.username }, function(err, docs) {
+	var finded = Application.find( { $and: [ { toPerson : req.user.username }, { status: { $ne: "rejected" } }, { status: { $ne: "accepted" } }  ] }, function(err, docs) {
 	    if (!err){
 	        console.log(docs);
 	        console.log('all inside');
@@ -537,7 +537,7 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 	        console.log(docs[0]);
 	        //	        console.log(docs[0].status);
 			var counter;
-	        Application.count({toPerson: req.user.username }, function(err, c) {
+	        Application.count({fromPerson: req.user.username }, function(err, c) {
 	        	if (err) {
 	        		console.log("error");
 	        	} else {
@@ -562,7 +562,7 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 
 });
 router.get('/dashboard2/:username/formtapplications', function(req, res){
-	var finded = Application.find({toPerson: req.user.username }, function(err, docs) {
+	var finded = Application.find( { $and: [ { toPerson : req.user.username }, { status: { $ne: "rejected" } }, { status: { $ne: "accepted" } }  ] }, function(err, docs) {
 	    if (!err){
 	        console.log(docs);
 	        console.log('all inside');
@@ -673,15 +673,18 @@ router.post('/applicationchange/reject', function(req, res){
 	var cha='rejected';
 	console.log(id);
 	Application.getAppByOID(id, function(err, appli){
-	if(!err){
-	console.log(appli.status);
-	appli.status=cha;
-	console.log(appli.status);
-	var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+		if(!err){
+			console.log(appli.status);
+			appli.status=cha;
+			console.log(appli.status);
+			var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
 			res.redirect(url1);
-	appli.save(function(err){
-    });	
-	}
+			appli.save(function(err){
+    			if (err) {
+    				console.log("Something is wrong");
+    			}
+    		});	
+		}
 	});	
 });
 
