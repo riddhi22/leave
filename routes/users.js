@@ -657,36 +657,77 @@ router.post('/applicationchange/accept', function(req, res){
 	console.log(id);
 	Application.getAppByOID(id, function(err, appli){
 	if(!err){
-	//console.log(appli.status);
-	appli.status=cha;
-	console.log(appli.status);
-	var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
-			res.redirect(url1);
-	appli.save(function(err){
+		//console.log(appli.status);
+		console.log(appli);
+		appli.status=cha;
+		console.log(appli.typeApp);
+		console.log(appli.status);
+		appli.save(function(err){
+    		if(err) {
+    			console.log("Application not saved successfully");
+    			req.flash('error_msg', 'Changes unsuccessfull');	
+    		} else {
+    		    user_leve = req.user.user_level;
+    		    if (user_leve== 'employee') {
+    			    	req.flash('success_msg', 'Changes requested Successfully');
+    					var url1 = '/users/dashboard1/'+req.user.username+'/formeapplications/';
+    					res.redirect(url1);
+    				} else if (user_leve== 'super') {
+    				    req.flash('success_msg', 'Changes requested Successfully');
+    					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+    					res.redirect(url1);
+    		//junk code, just to keep past cool
+    				} else if (user_leve== 'team') {
+    				    req.flash('success_msg', 'Changes requested Successfully');
+    					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+    					res.redirect(url1);
+    				};				
+    			}
+    		});	
+		}
     });	
-	}
-     });	
 });
+
+
+//	var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+//			res.redirect(url1);
 
 router.post('/applicationchange/reject', function(req, res){
 	var id = req.body.ouid;
 	var cha='rejected';
 	console.log(id);
-	Application.getAppByOID(id, function(err, appli){
+		Application.getAppByOID(id, function(err, appli){
 		if(!err){
-			console.log(appli.status);
+			//console.log(appli.status);
+			console.log(appli);
 			appli.status=cha;
+			console.log(appli.typeApp);
 			console.log(appli.status);
-			var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
-			res.redirect(url1);
 			appli.save(function(err){
-    			if (err) {
-    				console.log("Something is wrong");
-    			}
-    		});	
-		}
-	});	
-});
+	    		if(err) {
+	    			console.log("Application not saved successfully");
+	    			req.flash('error_msg', 'Changes unsuccessfull');	
+	    		} else {
+	    		    user_leve = req.user.user_level;
+	    		    if (user_leve== 'employee') {
+	    			    	req.flash('success_msg', 'Changes requested Successfully');
+	    					var url1 = '/users/dashboard1/'+req.user.username+'/formeapplications/';
+	    					res.redirect(url1);
+	    				} else if (user_leve== 'super') {
+	    				    req.flash('success_msg', 'Changes requested Successfully');
+	    					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+	    					res.redirect(url1);
+	    		//junk code, just to keep past cool
+	    				} else if (user_leve== 'team') {
+	    				    req.flash('success_msg', 'Changes requested Successfully');
+	    					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
+	    					res.redirect(url1);
+	    				};				
+	    			}
+	    		});	
+			}
+	    });	
+	});
 
 router.post('/application/reqchang', function(req, res){
 	var id = req.body.ouid;
