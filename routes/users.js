@@ -629,27 +629,9 @@ router.get('/dashboard2/:username/mytapplications', function(req, res){
 });
 
 router.get('/calendar', loggedIn , function(req, res){
-	res.render('calendar');
+	res.render('calendar',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
 });
 
-
-
-
-/*
-		if (typeApp=='func') {
-			var diff = dateDiff(from,to);
-			var newhol = req.user.holidays - diff;
-			console.log(newhol);
-			User.update(
-				{ username: req.user.username },
-				{ $set:
-					{
-						holidays : newhol
-					}
-				}
-			)
-		}
-	*/
 
 router.post('/applicationchange/accept', function(req, res){
 	var id = req.body.ouid;
