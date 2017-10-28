@@ -493,7 +493,7 @@ router.get('/dashboard1/:username/formeapplications', function(req, res){
 	        		counter=c;
 	        		console.log(c);
 	        	}
-	        }); 
+	        });
 	        	        //	        console.log(docs[0].status);
 			if (counter==0){
 				console.log("empty huzzah !2");
@@ -520,7 +520,7 @@ router.post('/get-maildata',function(req, res){
 	    if (!err){
 	    	docs[0].status = "Add_changes";
 	    	docs[0].changesreq = ans;
-            console.log(docs[0].changesreq);	        
+            console.log(docs[0].changesreq);
 	    }
 	    else {throw err;}
 	});
@@ -544,7 +544,7 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 	        		counter=c;
 	        		console.log(c);
 	        	}
-	        }); 
+	        });
 	        	        //	        console.log(docs[0].status);
 			if (counter==0){
 				console.log("empty huzzah !2");
@@ -553,7 +553,7 @@ router.get('/dashboard1/:username/myapplications', function(req, res){
 				console.log(url1);
 				res.redirect(url1);
 			}
-			else {	        
+			else {
 				res.render('allapplications1' ,{ applis : docs});
 	   		}
 	   //     process.exit();
@@ -577,7 +577,7 @@ router.get('/dashboard2/:username/formtapplications', function(req, res){
 	        		counter=c;
 	        		console.log(c);
 	        	}
-	        }); 
+	        });
 	        	        //	        console.log(docs[0].status);
 			if (counter==0){
 				console.log("empty huzzah !2");
@@ -610,7 +610,7 @@ router.get('/dashboard2/:username/mytapplications', function(req, res){
 	        		counter=c;
 	        		console.log(c);
 	        	}
-	        }); 
+	        });
 	        	        //	        console.log(docs[0].status);
 			if (counter==0){
 				console.log("empty huzzah !2");
@@ -662,10 +662,32 @@ router.post('/applicationchange/accept', function(req, res){
 		appli.status=cha;
 		console.log(appli.typeApp);
 		console.log(appli.status);
+    console.log("***********************");
+    if(appli.typeApp=='func'){
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "holidays" : dateDiff(appli.to  ,appli.from) }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
+}
+  else if(appli.typeApp=='nonfunc'){
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "nonfunc_holidays" : dateDiff(appli.from,appli.to) }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
+  }
+  else if(appli.typeApp=='halfday'){
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "halfdays" : 1 }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
+  }
 		appli.save(function(err){
     		if(err) {
     			console.log("Application not saved successfully");
-    			req.flash('error_msg', 'Changes unsuccessfull');	
+    			req.flash('error_msg', 'Changes unsuccessfull');
     		} else {
     		    user_leve = req.user.user_level;
     		    if (user_leve== 'employee') {
@@ -681,11 +703,11 @@ router.post('/applicationchange/accept', function(req, res){
     				    req.flash('success_msg', 'Changes requested Successfully');
     					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
     					res.redirect(url1);
-    				};				
+    				};
     			}
-    		});	
+    		});
 		}
-    });	
+    });
 });
 
 
@@ -706,7 +728,7 @@ router.post('/applicationchange/reject', function(req, res){
 			appli.save(function(err){
 	    		if(err) {
 	    			console.log("Application not saved successfully");
-	    			req.flash('error_msg', 'Changes unsuccessfull');	
+	    			req.flash('error_msg', 'Changes unsuccessfull');
 	    		} else {
 	    		    user_leve = req.user.user_level;
 	    		    if (user_leve== 'employee') {
@@ -722,17 +744,17 @@ router.post('/applicationchange/reject', function(req, res){
 	    				    req.flash('success_msg', 'Changes requested Successfully');
 	    					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
 	    					res.redirect(url1);
-	    				};				
+	    				};
 	    			}
-	    		});	
+	    		});
 			}
-	    });	
+	    });
 	});
 
 router.post('/application/reqchang', function(req, res){
 	var id = req.body.ouid;
 	console.log(id);
-	
+
 	Application.getAppByOID(id, function(err, appli){
    	if(err) throw err;
    	console.log(appli);
@@ -796,11 +818,11 @@ router.post('/getapp', function(req, res){
 });
 
 router.post('/edit', function(req, res){
-	Application.findOneAndUpdate({ _id: req.body._id }, 
+	Application.findOneAndUpdate({ _id: req.body._id },
 		{$set: {
         	reason: req.body.description,
     	 	}
-		}, 
+		},
 		function(err, doc){
     	if(err){
         	console.log("Something wrong when updating data!");
