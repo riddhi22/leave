@@ -664,7 +664,7 @@ router.post('/applicationchange/accept', function(req, res){
 		console.log(appli.status);
     console.log("***********************");
     if(appli.typeApp=='func'){
-    User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "holidays" : dateDiff(appli.to,appli.from) }}, function(err, doc){
+    User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "holidays" : dateDiff(appli.to  ,appli.from) }}, function(err, doc){
       if(err){
           console.log("Something wrong when updating data!");
       }
