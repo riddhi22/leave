@@ -664,25 +664,25 @@ router.post('/applicationchange/accept', function(req, res){
 		console.log(appli.status);
     console.log("***********************");
     if(appli.typeApp=='func'){
-    User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "holidays" : dateDiff(appli.to  ,appli.from) }}, function(err, doc){
-      if(err){
-          console.log("Something wrong when updating data!");
-      }
-  });
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "holidays" : dateDiff(appli.to  ,appli.from) }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
 }
   else if(appli.typeApp=='nonfunc'){
-    User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "nonfunc_holidays" : dateDiff(appli.from,appli.to) }}, function(err, doc){
-      if(err){
-          console.log("Something wrong when updating data!");
-      }
-  });
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "nonfunc_holidays" : dateDiff(appli.from,appli.to) }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
   }
   else if(appli.typeApp=='halfday'){
-    User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "halfdays" : 1 }}, function(err, doc){
-      if(err){
-          console.log("Something wrong when updating data!");
-      }
-  });
+            User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "halfdays" : 1 }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+          });
   }
 		appli.save(function(err){
     		if(err) {
