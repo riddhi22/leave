@@ -629,7 +629,7 @@ router.get('/dashboard2/:username/mytapplications', function(req, res){
 });
 
 router.get('/calendar', loggedIn , function(req, res){
-	res.render('calendar',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
+	res.render('calendar',{h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
 });
 
 
