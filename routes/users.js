@@ -160,19 +160,15 @@ router.post('/confirm1', function(req, res){//	var passwrd = req.user;
 router.post('/application', function(req, res){
 	var from = req.body.from;
 	var to = req.body.to;
-	var email = req.body.email;
-	var supervisor = req.body.supervisor;
+	var supervisor = req.user.leader;
 	var reason = req.body.reason;
 	var typeApp = req.body.typeApp;
 	console.log(from);
 	console.log(to);
-
+  console.log(supervisor);
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
-	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('email', 'Email is not valid').isEmail();
 	req.checkBody('to', 'To Date is required').notEmpty();
-	req.checkBody('supervisor', 'Supervisor name is required');
 	req.checkBody('reason', 'Reason is required');
 
 	var errors = req.validationErrors();
@@ -194,7 +190,6 @@ router.post('/application', function(req, res){
 		console.log(dateDiff(from,to));
 		var newApplication = new Application({
 			from: from,
-			email:email,
 			to: to,
 			toPerson: supervisor,
 			fromPerson: req.user.username,
@@ -814,4 +809,32 @@ router.post('/edit', function(req, res){
     	res.redirect(url2);
 		}
 	);
+});
+
+router.get('/dashboard2/:username/addingemp', function(req, res){
+    var finded = User.find({leader: null}, function(err, docs) {
+        if (!err){
+            console.log(docs);
+
+            res.render('addemp' ,{ applis : docs});
+       //     process.exit();
+        } else {throw err;}
+    });
+});
+
+router.post('/addingteam', function(req, res){
+   var mail = req.body.mail;
+   console.log(mail);
+
+   User.findOneAndUpdate({ email: req.body.mail }, {$set: {
+        leader: req.user.username,
+     }
+}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+    var url1 = '/users/dashboard2/'+req.user.username+'/addingemp';
+          req.flash("Employee added Successfully");
+          res.redirect(url1);
+   });
 });

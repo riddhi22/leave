@@ -10,10 +10,6 @@ var appSchema = mongoose.Schema({
     type: Date,
     required: true
   },
-  email:{
-    type: String,
-    required: true
-  },
   toPerson:{
     type: String,
     required: true
@@ -28,7 +24,7 @@ var appSchema = mongoose.Schema({
   },
   reason:{
     type: String,
-    required: true    
+    required: true
   },
   status:{
     type: String,
@@ -50,5 +46,3 @@ module.exports.getAppByOID = function(appli, callback){
   var query = { _id : appli};
   Application.findOne(query, callback);
 }
-
-
