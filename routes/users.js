@@ -165,20 +165,19 @@ router.post('/application', function(req, res){
 	var typeApp = req.body.typeApp;
 	console.log(from);
 	console.log(to);
-  console.log(supervisor);
+    console.log(supervisor);
 	// Validation
 	req.checkBody('from', 'From Date is required').notEmpty();
 	req.checkBody('to', 'To Date is required').notEmpty();
 	req.checkBody('reason', 'Reason is required');
 
 	var errors = req.validationErrors();
-  User.findOneAndUpdate({ 'username': supervisor },{ $inc : { "flag" : 1 }}, function(err, doc){
+  	User.findOneAndUpdate({ 'username': supervisor },{ $inc : { "flag" : 1 }}, function(err, doc){
     if(err){
         console.log("Something wrong when updating data!");
-    }
-
-    console.log(doc);
-});
+    	}
+	console.log(doc);
+	});
 
   	if(errors){
 		res.render('application',{
@@ -235,7 +234,7 @@ router.post('/application1', function(req, res){
 	req.checkBody('employee', 'Employee Name is required').notEmpty();
 	req.checkBody('reason', 'Reason is required');
 
-  User.findOneAndUpdate({ 'username': employee },{ $inc : { "flag" : 1 }}, function(err, doc){
+  	User.findOneAndUpdate({ 'username': employee },{ $inc : { "flag" : 1 }}, function(err, doc){
     if(err){
         console.log("Something wrong when updating data!");
     }
@@ -646,21 +645,19 @@ router.post('/applicationchange/accept', function(req, res){
                   console.log("Something wrong when updating data!");
               }
           });
-}
-  else if(appli.typeApp=='nonfunc'){
+	} else if(appli.typeApp=='nonfunc'){
             User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "nonfunc_holidays" : dateDiff(appli.from,appli.to) }}, function(err, doc){
               if(err){
                   console.log("Something wrong when updating data!");
               }
           });
-  }
-  else if(appli.typeApp=='halfday'){
+  	} else if(appli.typeApp=='halfday'){
             User.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { "halfdays" : 1 }}, function(err, doc){
               if(err){
                   console.log("Something wrong when updating data!");
               }
           });
-  }
+  	}
 		appli.save(function(err){
     		if(err) {
     			console.log("Application not saved successfully");
@@ -798,8 +795,9 @@ router.post('/edit', function(req, res){
 	Application.findOneAndUpdate({ _id: req.body._id },
 		{$set: {
         	reason: req.body.description,
-          from: req.body.from,
-          to : req.body.to
+          	from: req.body.from,
+          	to : req.body.to,
+    	 	status: 'pending' 
     	 	}
 		},
 		function(err, doc){
