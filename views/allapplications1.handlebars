@@ -1,17 +1,15 @@
 <div>
 <br>
 	<table>
-<thead>
+  <thead>
     <tr>
       <th scope="col">To Person</th>
       <th scope="col">From Date</th>
       <th scope="col">To Date</th>
       <th scope="col">Status</th>
-      <th scope="col">Reqchanges</th>
+      <th scope="col">Changes Requested</th>
       <th scope="col">Reason</th>
-      {{#if this.flag}}
-      <th scope="col">Make_change</th>
-      {{/if}}
+      <th scope="col">Make change</th>
     </tr>
   </thead>
   <tbody>
@@ -26,8 +24,10 @@
       {{#if this.flag}}
       <form action="/users/getapp" method="POST">  
         <input type="hidden" name="ouid" value={{this._id}}>
-        <td><button class="btn-btn success" value="Make_change" name="changes"></button></td>
+        <td><button class="btn btn-success" value="Make_change" name="changes">Make Changes</button></td>
       </form>
+      {{else}}
+        <td><i>Changes not requested</i></td>
       {{/if}}
 	  </tr>	
 	  {{/each}}

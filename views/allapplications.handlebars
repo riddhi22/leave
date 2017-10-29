@@ -27,15 +27,12 @@
 		<td>{{moment this.to format="YYYY-MM-DD"}}</td>
 		<td>{{this.status}}</td>
 		<td>{{this.reason}}</td>
-
-
-
 		<td>{{this.email}}</td>
     </tr>
         <form method="post" action="\users\get-maildata">
         	<input type="text" name="data">    
             <input type="submit" value="Submit">
-             <input type="hidden" name="mail" value={{{this.email}}}>
+            <input type="hidden" name="mail" value={{{this.email}}}>
         </form>
 	{{/each}}
 </div>

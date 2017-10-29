@@ -5,18 +5,18 @@
       {{/each}}
 {{/if}}
 <form method="post" action="/users/application">
+  
   <div class="form-group">
     <label>From Date</label>
     <label><h5>In case of half day, enter same date in From and To</h5></label>
     <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" placeholder="from date" name="from" class="form-control"/>
   </div>
-  <!--
-  <input type="text" class="form-control" placeholder="from date" name="from">
-  -->
+
   <div class="form-group">
     <label>To</label>
     <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" class="form-control" placeholder="To" name="to"/>
   </div>
+  
   <div class="form-group">
     <label>Type of Application</label>
     <select type="text" class="form-control" name="typeApp">
@@ -25,9 +25,11 @@
       <option value="halfday">Half day</option>
     </select>
   </div>
+  
   <div class="form-group">
     <label>Reason for leave</label>
     <textarea rows="10" cols="50" class="form-control" placeholder=""reason" name="reason"></textarea>
   </div>
+  
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
