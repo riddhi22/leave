@@ -1,7 +1,17 @@
 <form action="/users/edit" method="POST">
+  <div class="form-group">
+    <label>From Date</label>
+    <label><h5>In case of half day, enter same date in From and To</h5></label>
+    <input type="text" data-date-inline-picker="false" data-date-open-on-focus="true" placeholder="{{{app.from}}}" name="from" class="form-control"/>
+  </div>
+
+  <div class="form-group">
+    <label>To</label>
+    <input type="text" data-date-inline-picker="false" data-date-open-on-focus="true" class="form-control" placeholder="{{{app.to}}}" name="to"/>
+  </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea name="description" id="description" class="form-control">{{{app.reason}}}</textarea>
+                <textarea name="description"  class="form-control">{{{app.reason}}}</textarea>
             </div>
             <input type="hidden" name="_id" value="{{{app._id}}}">
             <button type="submit" class="btn btn-info">Submit</button>

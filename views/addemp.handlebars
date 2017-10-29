@@ -1,0 +1,14 @@
+<div>
+    <body>
+       {{#each applis}}
+           <p>{{this.name}}</p>
+           <p>{{this.email}}</p>
+           <form method="POST" action="/users/addingteam">
+           <input type="hidden" name="mail" value={{this.email}} />
+           <div align="right">
+               <button class="btn btn-default" value="submit" name="Submit"></button>
+           </div>
+           </form>
+       {{/each}}
+  </body>
+</div>

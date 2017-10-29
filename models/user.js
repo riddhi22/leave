@@ -30,6 +30,9 @@ var UserSchema = mongoose.Schema({
 	},
 	flag: {
 		type: Number
+	},
+	leader: {
+		type: String
 	}
 });
 

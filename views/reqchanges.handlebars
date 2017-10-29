@@ -8,7 +8,7 @@ Application written by <b>{{app.fromPerson}}</b> || Email <b>{{app.email}}</b>
 <br>{{app.reason}}
 
 <form action="/users/application/reqchanges" method="POST">
-<input type="text" name="reason">
+<input type="text" name="reason" required>
 <input type="hidden" name="ouid" value={{app._id}}>
 <button class="btn btn-success" style="background-color:#ccc;color:black;" type="submit">Request these Changes</button>
 </form>
