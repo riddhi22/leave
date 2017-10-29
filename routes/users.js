@@ -798,6 +798,8 @@ router.post('/edit', function(req, res){
 	Application.findOneAndUpdate({ _id: req.body._id },
 		{$set: {
         	reason: req.body.description,
+          from: req.body.from,
+          to : req.body.to
     	 	}
 		},
 		function(err, doc){
