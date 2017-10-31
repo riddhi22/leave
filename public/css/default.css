@@ -119,7 +119,7 @@ header a:hover{
 
 #showcase{
   min-height:550px;
-  background:url('https://images.unsplash.com/42/cA4aKEIPQrerBnp1yGHv_IMG_9534-3-2.jpg') no-repeat 0;
+  background:url('/img/in.jpg') no-repeat 0;
 	 background-size: cover;
   text-align:center;
 	margin-top: 0px;
