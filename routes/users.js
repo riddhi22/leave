@@ -797,7 +797,7 @@ router.post('/edit', function(req, res){
         	reason: req.body.description,
           	from: req.body.from,
           	to : req.body.to,
-    	 	status: 'pending' 
+    	 	status: 'pending'
     	 	}
 		},
 		function(err, doc){
@@ -812,7 +812,7 @@ router.post('/edit', function(req, res){
 });
 
 router.get('/dashboard2/:username/addingemp', function(req, res){
-    var finded = User.find({leader: null}, function(err, docs) {
+    var finded = User.find({leader: null , user_level:'employee'}, function(err, docs) {
         if (!err){
             console.log(docs);
 
