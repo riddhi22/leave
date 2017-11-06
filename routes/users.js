@@ -8,6 +8,7 @@ var moment = require('moment');
 
 var User = require('../models/user');
 var Application = require('../models/appli');
+var Holiday = require('../models/holidays');
 
 function compare(dateTimeA, dateTimeB) {
     var momentA = moment(dateTimeA,"YYYY-MM-DD");
@@ -22,6 +23,19 @@ function dateDiff(dateTimeA, dateTimeB) {
     var momentB = moment(dateTimeB,"YYYY-MM-DD");
     var result = momentB.diff(momentA, 'days');
     return result;
+}
+
+function dateDiff(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var momentB = moment(dateTimeB,"YYYY-MM-DD");
+    var result = momentB.diff(momentA, 'days');
+    return result;
+}
+
+function monthName(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var check = momentA.month();
+    return check+1;
 }
 
 function loggedIn(req, res, next) {
@@ -82,6 +96,16 @@ router.get('/dashboard2/:username/application1', loggedIn , function(req, res){
 });
 
 router.get('/dashboard1/:username', loggedIn , function(req, res){
+  var query = Holiday.findOne({ 'username': req.user.username });
+  console.log(query);
+  console.log("Tttttttttttttttttttt")
+  console.log(query.select('Jan'));
+  console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+  var finded = Holiday.find({'username': req.user.username}, function(err, docs) {
+      if (!err){
+          console.log(docs);
+  }
+});
 	res.render('dashboard1',{username : req.params.username, h1 : req.user.holidays, h2 : req.user.halfdays , h3 : req.user.nonfunc_holidays, flag : req.user.flag });
 });
 
@@ -128,6 +152,20 @@ router.post('/confirm', function(req, res){//	var passwrd = req.user;
 			var url1 = '/users/dashboard3/'+req.user.username;
 			res.redirect(url1);
 		}
+    var holiday = new Holiday({
+      username: req.body.u_name
+
+    });
+    holiday.save(function (err) {
+        if (err) {
+          console.log('nopes again 3');
+        }
+        else{
+        console.log('yeahhhhpppppppp!!');
+      }
+    });
+
+
 });
 
 router.post('/confirm1', function(req, res){//	var passwrd = req.user;
@@ -216,6 +254,7 @@ router.post('/application', function(req, res){
 		var url1 = '/users/application/';
 		res.redirect(url1);
 	}
+
 });
 
 router.post('/application1', function(req, res){
@@ -680,8 +719,73 @@ router.post('/applicationchange/accept', function(req, res){
     				};
     			}
     		});
+        var month =monthName(appli.from,appli.to);
+        console.log("AAAAAAAAAAAAAA");
+        console.log(month);
+
+        if(month==1){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Jan' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==2){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Feb' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==3){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Mar' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==4){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Apr' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==5){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'May' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==6){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Jun' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+        else if(month==7){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Jul' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                  if(err){
+                      console.log("Something wrong when updating data!");
+                  }
+                });}
+      else if(month==8){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Aug' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                if(err){
+                    console.log("Something wrong when updating data!");
+                }
+              });}
+      else if(month==9){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Sept' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+              if(err){
+                  console.log("Something wrong when updating data!");
+              }
+            });}
+      else if(month==10){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Oct' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                if(err){
+                    console.log("Something wrong when updating data!");
+                }
+              });}
+      else if(month==11){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Nov' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                if(err){
+                    console.log("Something wrong when updating data!");
+                }
+              });}
+      else if(month==12){    Holiday.findOneAndUpdate({ 'username': appli.fromPerson },{ $inc : { 'Dec' : dateDiff(appli.from,appli.to) }}, function(err, doc){
+                if(err){
+                    console.log("Something wrong when updating data!");
+                }
+              });}
 		}
     });
+
 });
 
 
