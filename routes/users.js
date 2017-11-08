@@ -8,6 +8,7 @@ var moment = require('moment');
 
 var User = require('../models/user');
 var Application = require('../models/appli');
+var Holiday = require('../models/holidays');
 
 function compare(dateTimeA, dateTimeB) {
     var momentA = moment(dateTimeA,"YYYY-MM-DD");
@@ -22,6 +23,82 @@ function dateDiff(dateTimeA, dateTimeB) {
     var momentB = moment(dateTimeB,"YYYY-MM-DD");
     var result = momentB.diff(momentA, 'days');
     return result;
+}
+
+function dateDiff(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var momentB = moment(dateTimeB,"YYYY-MM-DD");
+    var result = momentB.diff(momentA, 'days');
+    return result;
+}
+
+function monthName(dateTimeA, dateTimeB) {
+    var momentA = moment(dateTimeA,"YYYY-MM-DD");
+    var check = momentA.month();
+    return check+1;
+}
+
+function addHolidays(month,person,fromDate,toDate){
+  if(month==1){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Jan' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==2){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Feb' : dateDiff(fromDate,toDate) }}, function(err, doc){
+          if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==3){    Holiday.findOneAndUpdate({ 'username': person},{ $inc : { 'Mar' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==4){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Apr' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==5){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'May' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==6){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Jun' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+  else if(month==7){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Jul' : dateDiff(fromDate,toDate) }}, function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!");
+            }
+          });}
+else if(month==8){    Holiday.findOneAndUpdate({ 'username':person },{ $inc : { 'Aug' : dateDiff(fromDate,toDate) }}, function(err, doc){
+          if(err){
+              console.log("Something wrong when updating data!");
+          }
+        });}
+else if(month==9){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Sep' : dateDiff(fromDate,toDate) }}, function(err, doc){
+        if(err){
+            console.log("Something wrong when updating data!");
+        }
+      });}
+else if(month==10){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Oct' : dateDiff(fromDate,toDate) }}, function(err, doc){
+          if(err){
+              console.log("Something wrong when updating data!");
+          }
+        });}
+else if(month==11){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Nov' : dateDiff(fromDate,toDate) }}, function(err, doc){
+          if(err){
+              console.log("Something wrong when updating data!");
+          }
+        });}
+else if(month==12){    Holiday.findOneAndUpdate({ 'username': person },{ $inc : { 'Dec' : dateDiff(fromDate,toDate) }}, function(err, doc){
+          if(err){
+              console.log("Something wrong when updating data!");
+          }
+        });}
 }
 
 function loggedIn(req, res, next) {
@@ -128,6 +205,20 @@ router.post('/confirm', function(req, res){//	var passwrd = req.user;
 			var url1 = '/users/dashboard3/'+req.user.username;
 			res.redirect(url1);
 		}
+    var holiday = new Holiday({
+      username: req.body.u_name
+
+    });
+    holiday.save(function (err) {
+        if (err) {
+          console.log('nopes again 3');
+        }
+        else{
+        console.log('yeahhhhpppppppp!!');
+      }
+    });
+
+
 });
 
 router.post('/confirm1', function(req, res){//	var passwrd = req.user;
@@ -216,6 +307,7 @@ router.post('/application', function(req, res){
 		var url1 = '/users/application/';
 		res.redirect(url1);
 	}
+
 });
 
 router.post('/application1', function(req, res){
@@ -680,8 +772,13 @@ router.post('/applicationchange/accept', function(req, res){
     				};
     			}
     		});
+        var month =monthName(appli.from,appli.to);
+        console.log("AAAAAAAAAAAAAA");
+        console.log(month);
+        addHolidays(month,appli.fromPerson,appli.from,appli.to);
 		}
     });
+
 });
 
 
@@ -837,4 +934,12 @@ router.post('/addingteam', function(req, res){
           req.flash("Employee added Successfully");
           res.redirect(url1);
    });
+});
+
+router.get('/dashboard1/:username/leaverecord', function(req, res){
+	var finded = Holiday.find( { username : req.user.username }, function(err, docs) {
+	    if (!err){
+	  	       res.render('emp_perfo',{mon:docs[0]});
+  } else {throw err;}
+	});
 });
