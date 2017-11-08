@@ -3,31 +3,68 @@
     <head>
         <meta charset="utf-8" />
         <title>Chart.js demo</title>
-        <!-- import plugin script -->
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js'></script>
     </head>
     <body>
-        <!-- line chart canvas element -->
+        <center><h4>Leaves taken by you over the months</h4></center> 
+        <br>
         <canvas id="buyers" width="600" height="400"></canvas>
-
         <script>
-            // line chart data
-            var buyerData = {
+        var ctx = document.getElementById('buyers').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
                 labels : ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"],
-                datasets : [
-                {
-                    fillColor : "rgba(172,194,132,0.4)",
-                    strokeColor : "#ACC26D",
-                    pointColor : "#fff",
-                    pointStrokeColor : "#9DB86D",
-                    data : [{{{mon.Jan}}},{{{mon.Feb}}},{{{mon.Mar}}},{{{mon.Apr}}},{{{mon.May}}},{{{mon.Jun}}},{{{mon.Jul}}},{{{mon.Aug}}},{{{mon.Sep}}},{{{mon.Oct}}},{{{mon.Nov}}},{{{mon.Dec}}}]
+                datasets: [{
+                    label: 'Monthly Leaves',
+                    data : [{{{mon.Jan}}},{{{mon.Feb}}},{{{mon.Mar}}},{{{mon.Apr}}},{{{mon.May}}},{{{mon.Jun}}},{{{mon.Jul}}},{{{mon.Aug}}},{{{mon.Sep}}},{{{mon.Oct}}},{{{mon.Nov}}},{{{mon.Dec}}}], 
+                    backgroundColor: [
+                        'rgba(255, 210, 57, 0.6)',
+                        'rgba(248, 181, 29, 0.6)',
+                        'rgba(251, 138, 53, 0.6)',
+                        'rgba(223, 73, 85, 0.6)',
+                        'rgba(169, 34, 84, 0.6)',
+                        'rgba(151, 37, 80, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(98, 64, 151, 0.6)',
+                        'rgba(22, 97, 139, 0.6)',
+                        'rgba(51, 177, 227, 0.6)',
+                        'rgba(98, 209, 218, 0.6)',
+                        'rgba(109, 214, 173, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255,210,57,1)',
+                        'rgba(248, 181, 29, 1)',
+                        'rgba(251, 138, 53, 1)',
+                        'rgba(223, 73, 85, 1)',
+                        'rgba(169, 34, 84, 1)',
+                        'rgba(151, 37, 80, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(98, 64, 151, 1)',
+                        'rgba(22, 97, 139, 1)',
+                        'rgba(51, 177, 227, 1)',
+                        'rgba(98, 209, 218, 1)',
+                        'rgba(109, 214, 173, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fixedStepSize: 1
+                        }
+                    }],
+                    xAxes: [{
+                        time: {
+                            unit: 'month'
+                        }
+                    }]
                 }
-            ]
             }
-            // get line chart canvas
-            var buyers = document.getElementById('buyers').getContext('2d');
-            // draw line chart
-            new Chart(buyers).Line(buyerData);
+        });
 
         </script>
     </body>
