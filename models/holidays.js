@@ -7,40 +7,52 @@ var holiSchema = mongoose.Schema({
     required: true
   },
   Jan: {
-		type: Number
+		type: Number,
+    default: 0
 	},
   Feb: {
-   type: Number
+    type: Number,
+    default: 0
  },
  Mar: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Apr: {
-   type: Number
+   type: Number,
+   default: 0
  },
  May: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Jun: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Jul: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Aug: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Sep: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Oct: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Nov: {
-   type: Number
+   type: Number,
+   default: 0
  },
  Dec: {
-   type: Number
+   type: Number,
+   default: 0
  }
 });
 
