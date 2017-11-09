@@ -1,32 +1,22 @@
+<link rel="stylesheet" href="/css/style1.css"/>
 <div class="box">
   <div id="header">
   <h1 id="logintoregister">Login</h1>
   </div> 
   <form method="post" action="/users/login">
     <div class="group">      
-      <input class="inputMaterial" type="text" required>
+      <input class="inputMaterial" type="text" required name="username" placeholder="Username">
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Username</label>
     </div>
-	    <div class="group">      
-      <input class="inputMaterial" type="password" required>
+      <div class="group">      
+      <input class="inputMaterial" type="password" required name="password" placeholder="Password">
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
     </div>
-    
-      <div class="group">      
-      <select class="use">
-      <option class="tex">User_Level</option>
-	  <option class="tex">Employee</option>
-	  <option class="tex">Supervisior</option>
-	  <option class="tex">Admin</option>
-    </select>
-      <span class="highlight"></span>
-      <span class="bar"></span>
 
-    </div>
     <button id="buttonlogintoregister" type="submit">Login</button>
   </form>
   <div id="footer-box"><p class="footer-text">Leave Management Portal</p></div>
