@@ -1,82 +1,34 @@
-<div class="panel panel-default">
-  <div class="panel-heading">User Login</div>
-  <div class="panel-body">
-    <p>The username and password are both case-sensitive</p>
-  </div>
+<div class="box">
+  <div id="header">
+  <h1 id="logintoregister">Login</h1>
+  </div> 
   <form method="post" action="/users/login">
-  <ul class="list-group">
-    <li class="list-group-item">
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" class="form-control" name="username" placeholder="Username" required>
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" name="password" placeholder="Password" required>
-      </div>
-    </li>
-<!--    
-    <li class="list-group-item">
-      <div class="form-group">
-    <label>User Level</label>
-  </div>
-      
-    </li>
+    <div class="group">      
+      <input class="inputMaterial" type="text" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Username</label>
+    </div>
+	    <div class="group">      
+      <input class="inputMaterial" type="password" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Password</label>
+    </div>
     
-    <li class="list-group-item">
-      <div class="form-group">
-    <select type="text" class="form-control" name="user_level" placeholder="User Level">
-      <option value="employee">Employee</option>
-      <option value="team">Team Leader</option>
-      <option value="admin">Administrator</option>
+      <div class="group">      
+      <select class="use">
+      <option class="tex">User_Level</option>
+	  <option class="tex">Employee</option>
+	  <option class="tex">Supervisior</option>
+	  <option class="tex">Admin</option>
     </select>
-  </div>
-  
-    </li>
--->  
-    <li class="list-group-item">  <button type="submit" class="btn btn-default">Submit</button></li>
-  </ul>
-</form>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+
+    </div>
+    <button id="buttonlogintoregister" type="submit">Login</button>
+  </form>
+  <div id="footer-box"><p class="footer-text">Leave Management Portal</p></div>
 </div>
 
-<div>
-<!--
-<input name="url" type="text">
-<a class="btn duplicates">Check for Duplicates</a>
--->
-<!--
-/* <script type="text/javascript">
-        $(function () {
-            $(".duplicates").click(function () {
-                var uri = $("input[name='url']").val();
-                $.ajax({
-                    type: "POST",
-                    data: {dom_url: uri},
-                    url: "/checking",
-                    dataType: 'json',
-                    success: function (response) {
-                        var trint = response;
-                        if (trint.number == 3) {
-                            $('.message').html("<br>Sweet! We haven't got any bug from this domain till now");
-                        }
-                        else if (trint.number == 2) {
-                            var link = "www.bugheist.com/domain/" + trint.domain;
-                            $('.message').html("<br>Multiple bugs already exist on this domain, ensure you are not submitting a duplicate bug by going here:<br> " + link);
-                        }
-                        else if (trint.number == 1) {
-                            var link = "www.bugheist.com/issue/" + trint.id;
-                            $('.message').html("<br><div class='row'>A bug with same URL already exists <br>Description: " + trint.description + "<br>Created on: " + trint.date + "/" + trint.month + "/" + trint.year + "<br>Ensure you are not submitting a duplicate bug by checking here</div>: " + link);
-                        }
-                    },
-                    error: function (response) {
-                        $('.message').text('Something went wrong!');
-                    },
-                });
-            });
-        });
-*/    </script>
--->
-  
-  
