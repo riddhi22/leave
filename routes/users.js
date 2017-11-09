@@ -430,6 +430,17 @@ router.post('/delete', function(req, res) {
 	}
 });
 
+router.post('/namecheck', function(req,res){
+	var user = req.body.ucheck;
+	User.findOne({ 'username': user }, function(err, result) {
+		if (err) throw err;
+		if (!result) {
+			res.json({success : "no user", status : 200});
+		} else {
+			res.json({success : "user exist", status : 202});
+		}
+	});
+});
 // Register User
 router.post('/register', function(req, res){
 	var name = req.body.name;
