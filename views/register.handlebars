@@ -3,6 +3,7 @@
         <div class="alert alert-danger">{{msg}}</div>
       {{/each}}
 {{/if}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="panel panel-default">
   <div class="panel-heading">Register</div>
   <div class="panel-body">
@@ -25,7 +26,7 @@
       <li class="list-group-item">  
         <div class="form-group">
           <label>Email</label>
-          <input type="email" class="form-control" placeholder="Email" name="email" required>
+          <input type="email" class="form-control userin" placeholder="Email" name="email" required>
         </div>
       </li>
       <li class="list-group-item">
@@ -56,3 +57,29 @@
     </ul>
   </form>
 </div>
+<script type="text/javascript">
+  $(function() {
+    $('input[name="email"]').on('click', function () {
+      var unamecheck = $("input[name='username']").val();
+      console.log(unamecheck);
+      $.ajax({
+        type: "POST",
+        data: {ucheck : unamecheck},
+        url: "/users/namecheck/",
+        datatype: "json",
+        success: function (response) {
+          console.log(response);
+          if (response.status == 202) {
+            $("input").change(function() {
+              $('input[name="username"]').css("border", "5px solid red");
+            }).trigger("change");      
+          } else if (response.status == 200) {
+            $("input").change(function() {
+              $('input[name="username"]').css("border", "5px solid white");
+            }).trigger("change");      
+          } 
+        },
+      });
+    });
+  });
+</script>
