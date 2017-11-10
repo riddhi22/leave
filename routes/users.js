@@ -954,3 +954,17 @@ router.get('/dashboard1/:username/leaverecord', function(req, res){
   } else {throw err;}
 	});
 });
+
+router.get('/dashboard2/:username/viewemployee', function(req, res){
+	console.log("bc");
+	var finded = User.find({leader: req.user.username , user_level:'employee'}, function(err, docs) {
+	console.log("chal jao");
+	
+        if (!err){
+        console.log(docs);
+            res.render('viewemployee',{employeedocs : docs});
+	
+       //     process.exit();
+        } else {throw err;}
+    });
+});
