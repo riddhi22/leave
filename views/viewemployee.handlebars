@@ -1,0 +1,21 @@
+<div>
+<br>
+	<table>
+  <thead>
+    <tr>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Employee Email</th>
+      <th scope="col">Employee_username</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each employeedocs}}
+    <tr>
+  		<td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.username}}</td>
+	  </tr>	
+	  {{/each}}
+  </tbody>
+</table>
+</div>
