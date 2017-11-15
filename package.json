@@ -19,6 +19,7 @@
   "author": "group b10",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "bcryptjs": "*",
     "bluebird": "^3.5.1",
     "body-parser": "*",
