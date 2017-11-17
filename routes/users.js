@@ -4,7 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 var moment = require('moment');
-//moment.format();
+var async = require('async');//moment.format();
 
 var User = require('../models/user');
 var Application = require('../models/appli');
@@ -17,14 +17,6 @@ function compare(dateTimeA, dateTimeB) {
     else if (momentA < momentB) return -1;
     else return 0;
 }
-
-function dateDiff(dateTimeA, dateTimeB) {
-    var momentA = moment(dateTimeA,"YYYY-MM-DD");
-    var momentB = moment(dateTimeB,"YYYY-MM-DD");
-    var result = momentB.diff(momentA, 'days');
-    return result;
-}
-
 function dateDiff(dateTimeA, dateTimeB) {
     var momentA = moment(dateTimeA,"YYYY-MM-DD");
     var momentB = moment(dateTimeB,"YYYY-MM-DD");
@@ -768,16 +760,16 @@ router.post('/applicationchange/accept', function(req, res){
     		} else {
     		    user_leve = req.user.user_level;
     		    if (user_leve== 'employee') {
-    			    	req.flash('success_msg', 'Changes requested Successfully');
+    			    	req.flash('success_msg', 'Accepted Successfully');
     					var url1 = '/users/dashboard1/'+req.user.username+'/formeapplications/';
     					res.redirect(url1);
     				} else if (user_leve== 'super') {
-    				    req.flash('success_msg', 'Changes requested Successfully');
+    				    req.flash('success_msg', 'Accepted Successfully');
     					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
     					res.redirect(url1);
     		//junk code, just to keep past cool
     				} else if (user_leve== 'team') {
-    				    req.flash('success_msg', 'Changes requested Successfully');
+    				    req.flash('success_msg', 'Accepted Successfully');
     					var url1 = '/users/dashboard2/'+req.user.username+'/formtapplications/';
     					res.redirect(url1);
     				};
@@ -948,7 +940,7 @@ router.post('/addingteam', function(req, res){
 });
 
 router.get('/dashboard1/:username/leaverecord', function(req, res){
-	var finded = Holiday.find( { username : req.user.username }, function(err, docs) {
+	Holiday.find( { username : req.user.username }, function(err, docs) {
 	    if (!err){
 	  	       res.render('emp_perfo',{mon:docs[0]});
   } else {throw err;}
@@ -956,10 +948,8 @@ router.get('/dashboard1/:username/leaverecord', function(req, res){
 });
 
 router.get('/dashboard2/:username/viewemployee', function(req, res){
-	console.log("bc");
 	var finded = User.find({leader: req.user.username , user_level:'employee'}, function(err, docs) {
-	console.log("chal jao");
-	
+	console.log("chal jao");	 
         if (!err){
         console.log(docs);
             res.render('viewemployee',{employeedocs : docs});
@@ -967,4 +957,65 @@ router.get('/dashboard2/:username/viewemployee', function(req, res){
        //     process.exit();
         } else {throw err;}
     });
+});
+
+router.get('/dashboard2/:username/teamperformance',function(req,res){
+	var counter;
+
+	User.count({leader: req.user.username,user_level:'employee' }, function(err, c) {
+	    if (err || !c) {
+	        console.log("error");
+	        callback(err,null);
+	    } else {
+	       	 	counter=c;
+	        	console.log(c);
+	    }
+	});
+	var i;	
+	User.find({leader: req.user.username , user_level:'employee'}, function(err, docs) {
+		//console.log("chal jao");	 
+        if (err || !docs){
+        	//console.log(docs);
+        	callback(err,null);
+        } else {
+         	var tot_jan=0, tot_feb=0, tot_mar=0, tot_apr=0, tot_may=0, tot_jun=0, tot_jul=0, tot_aug=0,tot_sep=0, tot_oct=0,tot_nov=0,tot_dec=0;
+			  console.log("bbavb");
+			  async.forEach(docs, processEachTask, afterAllTasks);  
+
+			function processEachTask(doc, callback) {
+				var a = doc.username;
+			    	console.log(a);
+				Holiday.findOne({'username' : a},function(err,p){
+					if (err) {
+						console.log("eeee");	
+					} else {
+						console.log(p);
+			    			if(p) {
+			            			console.log(p.Jan);
+				            		tot_jan = tot_jan +p.Jan;
+				            		tot_feb = tot_feb +p.Feb;
+				            		tot_mar = tot_mar +p.Mar;
+				            		tot_apr = tot_apr +p.Apr;
+				            		tot_may = tot_may +p.May;
+				            		tot_jun = tot_jun +p.Jun;
+				            		tot_jul = tot_jul +p.Jul;
+				            		tot_aug = tot_aug +p.Aug;
+				            		tot_sep = tot_sep +p.Sep;
+				            		tot_oct = tot_oct +p.Oct;
+				            		tot_nov = tot_nov +p.Nov;
+				            		tot_oct = tot_oct +p.Dec;  
+				            		console.log(tot_jan,tot_feb,tot_mar,tot_apr,tot_may,tot_jun,tot_jul,tot_aug,tot_sep,tot_oct,tot_nov,tot_dec); 
+			            		//callback(err);
+			            		}
+			            		callback(err);
+			    		}	        		 
+					});
+			}
+		  function afterAllTasks(err) {
+				console.log(tot_jan);
+				res.render('team_per',{tot_jan,tot_feb,tot_mar,tot_apr,tot_may,tot_jun,tot_jul,tot_aug,tot_sep,tot_oct,tot_nov,tot_dec});
+		  }
+        } 
+    });
+    
 });
