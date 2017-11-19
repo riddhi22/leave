@@ -947,6 +947,14 @@ router.get('/dashboard1/:username/leaverecord', function(req, res){
 	});
 });
 
+router.get('/dashboard2/:username/leaverecord', function(req, res){
+	Holiday.find( { username : req.user.username }, function(err, docs) {
+	    if (!err){
+	  	       res.render('emp_perfo',{mon:docs[0]});
+  } else {throw err;}
+	});
+});
+
 router.get('/dashboard2/:username/viewemployee', function(req, res){
 	var finded = User.find({leader: req.user.username , user_level:'employee'}, function(err, docs) {
 	console.log("chal jao");	 
@@ -973,6 +981,57 @@ router.get('/dashboard2/:username/teamperformance',function(req,res){
 	});
 	var i;	
 	User.find({leader: req.user.username , user_level:'employee'}, function(err, docs) {
+		//console.log("chal jao");	 
+        if (err || !docs){
+        	//console.log(docs);
+        	callback(err,null);
+        } else {
+         	var tot_jan=0, tot_feb=0, tot_mar=0, tot_apr=0, tot_may=0, tot_jun=0, tot_jul=0, tot_aug=0,tot_sep=0, tot_oct=0,tot_nov=0,tot_dec=0;
+			  console.log("bbavb");
+			  async.forEach(docs, processEachTask, afterAllTasks);  
+
+			function processEachTask(doc, callback) {
+				var a = doc.username;
+			    	console.log(a);
+				Holiday.findOne({'username' : a},function(err,p){
+					if (err) {
+						console.log("eeee");	
+					} else {
+						console.log(p);
+			    			if(p) {
+			            			console.log(p.Jan);
+				            		tot_jan = tot_jan +p.Jan;
+				            		tot_feb = tot_feb +p.Feb;
+				            		tot_mar = tot_mar +p.Mar;
+				            		tot_apr = tot_apr +p.Apr;
+				            		tot_may = tot_may +p.May;
+				            		tot_jun = tot_jun +p.Jun;
+				            		tot_jul = tot_jul +p.Jul;
+				            		tot_aug = tot_aug +p.Aug;
+				            		tot_sep = tot_sep +p.Sep;
+				            		tot_oct = tot_oct +p.Oct;
+				            		tot_nov = tot_nov +p.Nov;
+				            		tot_oct = tot_oct +p.Dec;  
+				            		console.log(tot_jan,tot_feb,tot_mar,tot_apr,tot_may,tot_jun,tot_jul,tot_aug,tot_sep,tot_oct,tot_nov,tot_dec); 
+			            		//callback(err);
+			            		}
+			            		callback(err);
+			    		}	        		 
+					});
+			}
+		  function afterAllTasks(err) {
+				console.log(tot_jan);
+				res.render('team_per',{tot_jan,tot_feb,tot_mar,tot_apr,tot_may,tot_jun,tot_jul,tot_aug,tot_sep,tot_oct,tot_nov,tot_dec});
+		  }
+        } 
+    });
+    
+});
+
+router.get('/:username/teamsuper',function(req,res){
+	var counter;
+	var i;	
+	User.find({user_level:'super'}, function(err, docs) {
 		//console.log("chal jao");	 
         if (err || !docs){
         	//console.log(docs);
